@@ -1,8 +1,6 @@
 <template>
-  <div class="divide-y divide-dashed divide-primary">
-    <HomeHeader />
-    <slot />
-  </div>
+  <HomeHeader />
+  <slot />
 </template>
 
 <style>
