@@ -7,6 +7,7 @@
       <NewFavoriteText />
       <NewFavoritePhoto />
       <NewFavoriteLocation />
+      <button class="btn btn-primary mt-9">SUBMIT</button>
     </form>
   </div>
 </template>
