@@ -5,7 +5,7 @@
   <input
     type="text"
     placeholder="Type here"
-    class="input input-bordered w-full input-primary"
+    class="input input-bordered w-full input-secondary"
   />
   <label class="label">
     <span class="label-text">Description</span>
@@ -13,6 +13,6 @@
   <textarea
     type="text"
     placeholder="Type here"
-    class="textarea textarea-bordered w-full textarea-primary"
+    class="textarea textarea-bordered w-full textarea-secondary"
   />
 </template>

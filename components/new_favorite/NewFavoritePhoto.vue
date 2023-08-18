@@ -4,6 +4,6 @@
   </label>
   <input
     type="file"
-    class="file-input file-input-bordered w-full file-input-primary"
+    class="file-input file-input-bordered w-full file-input-secondary"
   />
 </template>

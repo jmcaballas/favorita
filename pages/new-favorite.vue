@@ -5,9 +5,10 @@
       class="form-control flex justify-center w-full"
     >
       <NewFavoriteText />
+      <NewFavoriteTags />
       <NewFavoritePhoto />
       <NewFavoriteLocation />
-      <button class="btn btn-primary mt-9">SUBMIT</button>
+      <button class="btn btn-secondary mt-9">SUBMIT</button>
     </form>
   </div>
 </template>
