@@ -1,6 +1,6 @@
 <template>
   <label class="label">
-    <span class="label-text">New Favorite Food</span>
+    <span class="label-text">Upload Photo</span>
   </label>
   <input
     type="file"
