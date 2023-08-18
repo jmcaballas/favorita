@@ -1,5 +1,5 @@
 <template>
-  <HomeHeader />
+  <LayoutHeader />
   <slot />
 </template>
 
