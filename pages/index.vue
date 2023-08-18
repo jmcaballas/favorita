@@ -10,11 +10,12 @@
       </NuxtLink>
     </div>
 
-    <div class="mt-4">
+    <div class="mt-4 flex flex-wrap">
       <HomeFavoriteCard
         v-for="favorite in favorites"
         :key="favorite.id"
         :favorite="favorite"
+        class="w-full md:w-1/3 lg:w-1/4"
       />
     </div>
   </div>

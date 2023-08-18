@@ -1,12 +1,13 @@
 <template>
   <header>
-    <div class="card lg:card-side bg-base-200">
+    <div class="card xl:card-side bg-base-200 m-4 shadow-md">
       <figure>
-        <img :src="favorite.photo" alt="" class="object-cover h-48 w-80" />
+        <img :src="favorite.photo" alt="" class="object-cover h-48 w-full" />
       </figure>
       <div class="card-body">
         <h2 class="card-title">{{ favorite.name }}</h2>
-        <p>{{ favorite.description }}</p>
+        <p>{{ favorite.tags }}</p>
+        <p>{{ favorite.location }}</p>
       </div>
     </div>
   </header>
