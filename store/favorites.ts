@@ -11,7 +11,20 @@ type Favorites = {
 };
 
 export const useFavoritesStore = defineStore("favorites", () => {
-  const favorites = ref<Favorites[]>([{ id: 0, name: "Banana" }]);
+  const favorites = ref<Favorites[]>([
+    {
+      id: 0,
+      name: "Banana",
+      description: "This is my favorite fruit!",
+      photo: "/_nuxt/assets/img/banana.jpg",
+    },
+    {
+      id: 1,
+      name: "Apple",
+      description: "This is a red fruit!",
+      photo: "/_nuxt/assets/img/apple.jpg",
+    },
+  ]);
 
   function addFavorite(newFavorite: Favorites) {
     favorites.value.push(newFavorite);

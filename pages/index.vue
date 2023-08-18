@@ -1,11 +1,29 @@
 <template>
-  <div class="container mx-auto p-4 flex justify-center h-screen">
-    <NuxtLink
-      to="/new-favorite"
-      class="btn btn-sm sm:btn-sm md:btn-md lg:btn-lg btn-secondary"
-    >
-      <Icon name="ci:plus-circle-outline" size="2em" />
-      ADD NEW FAVORITE
-    </NuxtLink>
+  <div class="container mx-auto p-4 flex flex-col items-center h-screen">
+    <div>
+      <NuxtLink
+        to="/new-favorite"
+        class="btn btn-sm sm:btn-sm md:btn-md lg:btn-lg btn-secondary"
+      >
+        <Icon name="ci:plus-circle-outline" size="2em" />
+        ADD NEW FAVORITE
+      </NuxtLink>
+    </div>
+
+    <div class="mt-4">
+      <HomeFavoriteCard
+        v-for="favorite in favorites"
+        :key="favorite.id"
+        :favorite="favorite"
+      />
+    </div>
   </div>
 </template>
+
+<script setup lang="ts">
+import { useFavoritesStore } from "@/store/favorites";
+import { storeToRefs } from "pinia";
+
+const store = useFavoritesStore();
+const { favorites } = storeToRefs(store);
+</script>
