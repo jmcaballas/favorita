@@ -1,13 +1,24 @@
 <template>
   <header>
-    <div class="card xl:card-side bg-base-200 m-4 shadow-md">
+    <div class="card card-compact xl:card-side bg-base-200 m-4 shadow-md">
       <figure>
         <img :src="favorite.photo" alt="" class="object-cover h-48 w-full" />
       </figure>
       <div class="card-body">
         <h2 class="card-title">{{ favorite.name }}</h2>
-        <p>{{ favorite.tags }}</p>
-        <p>{{ favorite.location }}</p>
+        <div class="flex flex-wrap">
+          <div
+            v-for="tag in favorite.tags"
+            :key="tag"
+            class="mr-1 mb-1 btn btn-xs btn-accent no-animation w-min"
+          >
+            {{ tag.length > 20 ? tag.slice(0, 20) + "..." : tag }}
+          </div>
+        </div>
+        <div v-show="favorite.location" class="flex items-center">
+          <Icon name="ci:location-outline" class="ml-1" />
+          <p>{{ favorite.location }}</p>
+        </div>
       </div>
     </div>
   </header>

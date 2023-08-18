@@ -18,7 +18,17 @@ export const useFavoritesStore = defineStore("favorites", () => {
       description:
         "This is my favorite fruit! This is my favorite fruit! This is my favorite fruit! This is my favorite fruit! This is my favorite fruit!",
       photo: "/_nuxt/assets/img/banana.jpg",
-      tags: ["fruit", "yellow", "yummy"],
+      tags: [
+        "fruit",
+        "yellow",
+        "yummy",
+        "good",
+        "great",
+        "best",
+        "amazing",
+        "fresh",
+        "delicious",
+      ],
       location: "Anywhere",
     },
     {
