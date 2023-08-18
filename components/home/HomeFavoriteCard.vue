@@ -25,14 +25,9 @@
 </template>
 
 <script setup lang="ts">
+import { Favorites } from "@/types/types";
+
 const props = defineProps<{
-  favorite: {
-    id: number;
-    name: string;
-    description?: string;
-    tags?: string[];
-    photo?: string;
-    location?: string;
-  };
+  favorite: Favorites;
 }>();
 </script>
