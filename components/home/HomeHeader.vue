@@ -9,7 +9,11 @@
 
           <div class="dropdown dropdown-end">
             <label tabindex="0">
-              <Icon name="ci:chevron-down" size="1.5em" />
+              <Icon
+                name="ci:chevron-down"
+                size="1.5em"
+                class="cursor-pointer"
+              />
             </label>
             <ul
               tabindex="0"
