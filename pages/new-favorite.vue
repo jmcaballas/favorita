@@ -7,7 +7,7 @@
       <NewFavoriteText v-model:name="name" v-model:description="description" />
       <NewFavoriteTags :tags="tags" @add-tag="addTag" @remove-tag="removeTag" />
       <NewFavoritePhoto />
-      <NewFavoriteLocation />
+      <NewFavoriteLocation v-model:location="location" />
       <button class="btn btn-secondary mt-9">SUBMIT</button>
     </form>
   </div>
@@ -39,9 +39,9 @@ const handleAdd = () => {
     id: 6,
     name: name.value,
     description: description.value,
-    photo: "/_nuxt/assets/img/apple.jpg",
+    photo: "/_nuxt/assets/img/banana.jpg",
     tags: tags.value,
-    location: "Everywhere",
+    location: location.value,
   };
 
   addFavorite(newFavorite);
