@@ -16,6 +16,7 @@
         :key="favorite.id"
         :favorite="favorite"
         class="w-full md:w-1/3 lg:w-1/4"
+        @click="handleNavigate(favorite.id)"
       />
     </div>
   </div>
@@ -27,4 +28,9 @@ import { storeToRefs } from "pinia";
 
 const store = useFavoritesStore();
 const { favorites } = storeToRefs(store);
+const router = useRouter();
+
+const handleNavigate = (id: number) => {
+  router.push({ path: `/favorites-${id}` });
+};
 </script>

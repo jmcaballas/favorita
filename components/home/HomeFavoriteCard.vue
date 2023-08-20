@@ -1,6 +1,8 @@
 <template>
   <header>
-    <div class="card card-compact xl:card-side bg-base-200 m-4 shadow-md">
+    <div
+      class="card card-compact xl:card-side bg-base-200 m-4 shadow-md cursor-pointer"
+    >
       <figure>
         <img :src="favorite.photo" alt="" class="object-cover h-48 w-full" />
       </figure>
