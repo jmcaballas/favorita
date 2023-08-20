@@ -8,6 +8,7 @@
     :value="name"
     @input="$emit('update:name', ($event.target as HTMLInputElement)?.value)"
     class="input input-bordered w-full input-secondary"
+    required
   />
   <label class="label">
     <span class="label-text">Description</span>
