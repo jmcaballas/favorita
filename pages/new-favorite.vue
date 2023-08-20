@@ -5,7 +5,7 @@
       class="form-control flex justify-center w-full"
     >
       <NewFavoriteText v-model:name="name" v-model:description="description" />
-      <NewFavoriteTags />
+      <NewFavoriteTags :tags="tags" @add-tag="addTag" @remove-tag="removeTag" />
       <NewFavoritePhoto />
       <NewFavoriteLocation />
       <button class="btn btn-secondary mt-9">SUBMIT</button>
@@ -22,9 +22,17 @@ const { addFavorite } = store;
 
 const name = ref("");
 const description = ref("");
-const tags = ref([]);
+const tags = ref([] as string[]);
 const photo = ref("");
 const location = ref("");
+
+const addTag = (tag: string) => {
+  tags.value.push(tag);
+};
+
+const removeTag = (tag: string) => {
+  tags.value = tags.value.filter((item) => item !== tag);
+};
 
 const handleAdd = () => {
   const newFavorite: Favorites = {
@@ -32,7 +40,7 @@ const handleAdd = () => {
     name: name.value,
     description: description.value,
     photo: "/_nuxt/assets/img/apple.jpg",
-    tags: ["fruit", "red", "delicious"],
+    tags: tags.value,
     location: "Everywhere",
   };
 

@@ -23,19 +23,26 @@
 </template>
 
 <script setup lang="ts">
-const tags = useState("tags", () => [] as string[]);
 const tempTag = useState("tempTag", () => "");
+
+const props = defineProps({
+  tags: {
+    type: Array as () => string[],
+    required: true,
+  },
+});
+const emit = defineEmits(["addTag", "removeTag"]);
 
 const addTag = (e: KeyboardEvent) => {
   if (e.key === "Enter" && tempTag.value) {
-    if (!tags.value.includes(tempTag.value)) {
-      tags.value.push(tempTag.value);
+    if (!props.tags.includes(tempTag.value)) {
+      emit("addTag", tempTag.value);
     }
     tempTag.value = "";
   }
 };
 
 const removeTag = (tag: string) => {
-  tags.value = tags.value.filter((item) => item !== tag);
+  emit("removeTag", tag);
 };
 </script>
