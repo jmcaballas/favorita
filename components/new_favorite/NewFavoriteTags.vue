@@ -44,7 +44,7 @@ const emit = defineEmits(["addTag", "removeTag"]);
 const addTag = () => {
   if (tempTag.value.trim() !== "") {
     if (!props.tags.includes(tempTag.value)) {
-      emit("addTag", tempTag.value);
+      emit("addTag", tempTag.value.trim());
     }
     tempTag.value = "";
   }
