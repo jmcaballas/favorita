@@ -19,6 +19,7 @@ import { Favorites } from "@/types/types";
 
 const store = useFavoritesStore();
 const { addFavorite } = store;
+const router = useRouter();
 
 const name = ref("");
 const description = ref("");
@@ -45,5 +46,6 @@ const handleAdd = () => {
   };
 
   addFavorite(newFavorite);
+  router.push({ path: "/" });
 };
 </script>
