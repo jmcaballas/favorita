@@ -1,14 +1,22 @@
 <template>
-  <label class="label">
-    <span class="label-text">Tags</span>
-  </label>
-  <input
-    type="text"
-    placeholder="Type here"
-    class="input input-bordered w-full input-secondary"
-    v-model="tempTag"
-    @keydown.enter.prevent="addTag"
-  />
+  <div class="flex items-end">
+    <div class="grow">
+      <label class="label">
+        <span class="label-text">Tags</span>
+      </label>
+      <input
+        type="text"
+        placeholder="Type here"
+        class="input input-bordered w-full input-secondary"
+        v-model="tempTag"
+        @keydown.enter.prevent="addTag"
+      />
+    </div>
+    <div class="ml-2">
+      <button class="btn btn-secondary" @click.prevent="addTag">ADD TAG</button>
+    </div>
+  </div>
+
   <div class="flex flex-wrap my-3">
     <div
       v-for="tag in tags"
@@ -34,7 +42,7 @@ const props = defineProps({
 const emit = defineEmits(["addTag", "removeTag"]);
 
 const addTag = () => {
-  if (tempTag.value) {
+  if (tempTag.value.trim() !== "") {
     if (!props.tags.includes(tempTag.value)) {
       emit("addTag", tempTag.value);
     }
