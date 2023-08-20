@@ -7,7 +7,7 @@
     placeholder="Type here"
     class="input input-bordered w-full input-secondary"
     v-model="tempTag"
-    @keyup="addTag"
+    @keydown.enter.prevent="addTag"
   />
   <div class="flex flex-wrap my-3">
     <div
@@ -33,8 +33,8 @@ const props = defineProps({
 });
 const emit = defineEmits(["addTag", "removeTag"]);
 
-const addTag = (e: KeyboardEvent) => {
-  if (e.key === "Enter" && tempTag.value) {
+const addTag = () => {
+  if (tempTag.value) {
     if (!props.tags.includes(tempTag.value)) {
       emit("addTag", tempTag.value);
     }
