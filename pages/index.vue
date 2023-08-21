@@ -28,9 +28,8 @@ import { storeToRefs } from "pinia";
 
 const store = useFavoritesStore();
 const { favorites } = storeToRefs(store);
-const router = useRouter();
 
-const handleNavigate = (id: number) => {
-  router.push({ path: `/favorites-${id}` });
+const handleNavigate = async (id: number) => {
+  await navigateTo({ path: `/favorites-${id}` });
 };
 </script>
