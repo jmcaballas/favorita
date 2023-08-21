@@ -22,6 +22,17 @@
         </div>
         <p>{{ favorite?.description }}</p>
       </div>
+
+      <div class="flex justify-around m-4">
+        <div class="btn btn-secondary w-5/12">
+          <Icon name="ci:edit-pencil-01" size="1.5em" />
+          EDIT
+        </div>
+        <div class="btn btn-secondary w-5/12">
+          <Icon name="ci:trash-full" size="1.5em" />
+          DELETE
+        </div>
+      </div>
     </div>
   </div>
 </template>
