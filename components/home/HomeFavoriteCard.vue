@@ -6,6 +6,7 @@
       <figure>
         <img :src="favorite.photo" alt="" class="object-cover h-48 w-full" />
       </figure>
+
       <div class="card-body">
         <h2 class="card-title">{{ favorite.name }}</h2>
         <div class="flex flex-wrap">
@@ -18,7 +19,7 @@
           </div>
         </div>
         <div v-show="favorite.location" class="flex items-center">
-          <Icon name="ci:location-outline" class="ml-1" />
+          <Icon name="ci:location-outline" />
           <p>{{ favorite.location }}</p>
         </div>
       </div>

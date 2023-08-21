@@ -31,7 +31,7 @@
       @click="removeTag(tag)"
     >
       {{ tag.length > 20 ? tag.slice(0, 20) + "..." : tag }}
-      <Icon name="ci:close-lg" class="ml-1" />
+      <Icon name="ci:close-lg" />
     </div>
   </div>
 </template>

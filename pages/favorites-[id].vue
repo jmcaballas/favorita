@@ -2,8 +2,9 @@
   <div class="container mx-auto p-4">
     <div class="card card-compact bg-base-200 m-4 shadow-md">
       <figure>
-        <img :src="favorite?.photo" alt="" class="object-cover h-48 w-full" />
+        <img :src="favorite?.photo" alt="" />
       </figure>
+
       <div class="card-body">
         <h2 class="card-title">{{ favorite?.name }}</h2>
         <div class="flex flex-wrap">
@@ -16,9 +17,10 @@
           </div>
         </div>
         <div v-show="favorite?.location" class="flex items-center">
-          <Icon name="ci:location-outline" class="ml-1" />
+          <Icon name="ci:location-outline" />
           <p>{{ favorite?.location }}</p>
         </div>
+        <p>{{ favorite?.description }}</p>
       </div>
     </div>
   </div>
