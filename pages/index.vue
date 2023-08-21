@@ -23,8 +23,8 @@
 </template>
 
 <script setup lang="ts">
-import { useFavoritesStore } from "@/store/favorites";
 import { storeToRefs } from "pinia";
+import { useFavoritesStore } from "@/store/favorites";
 
 const store = useFavoritesStore();
 const { favorites } = storeToRefs(store);
