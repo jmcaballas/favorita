@@ -1,10 +1,7 @@
 <template>
   <div class="container mx-auto p-4 flex flex-col items-center h-screen">
     <div>
-      <NuxtLink
-        to="/new-favorite"
-        class="btn btn-sm sm:btn-sm md:btn-md lg:btn-lg btn-secondary"
-      >
+      <NuxtLink to="/new-favorite" class="btn btn-secondary">
         <Icon name="ci:plus-circle-outline" size="2em" />
         ADD NEW FAVORITE
       </NuxtLink>

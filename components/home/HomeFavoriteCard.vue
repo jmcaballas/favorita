@@ -30,7 +30,7 @@
 <script setup lang="ts">
 import { Favorites } from "@/types/types";
 
-const props = defineProps<{
+defineProps<{
   favorite: Favorites;
 }>();
 </script>
