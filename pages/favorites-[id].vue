@@ -28,7 +28,7 @@
           <Icon name="ci:edit-pencil-01" size="1.5em" />
           EDIT
         </div>
-        <div class="btn btn-secondary w-5/12">
+        <div class="btn btn-secondary w-5/12" @click="handleDelete">
           <Icon name="ci:trash-full" size="1.5em" />
           DELETE
         </div>
@@ -43,9 +43,15 @@ import { useFavoritesStore } from "@/store/favorites";
 
 const store = useFavoritesStore();
 const { favorites } = storeToRefs(store);
+const { deleteFavorite } = store;
 const route = useRoute();
 
 const favorite = computed(() =>
   favorites.value.find((item) => item.id === Number(route.params.id))
 );
+
+const handleDelete = async () => {
+  deleteFavorite(Number(route.params.id));
+  await navigateTo({ path: "/" });
+};
 </script>
