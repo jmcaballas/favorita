@@ -20,11 +20,11 @@ import { Favorites } from "@/types/types";
 const store = useFavoritesStore();
 const { addFavorite } = store;
 
-const name = ref("");
-const description = ref("");
-const tags = ref([] as string[]);
-const photo = ref("");
-const location = ref("");
+const name = useState("newName", () => "");
+const description = useState("newDescription", () => "");
+const tags = useState<string[]>("newTags", () => []);
+const photo = useState("newPhoto", () => "");
+const location = useState("newLocation", () => "");
 
 const addTag = (tag: string) => {
   tags.value.push(tag);
