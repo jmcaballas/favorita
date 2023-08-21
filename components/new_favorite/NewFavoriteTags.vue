@@ -13,7 +13,13 @@
       />
     </div>
     <div class="ml-2">
-      <button class="btn btn-secondary" @click.prevent="addTag">ADD TAG</button>
+      <button
+        class="btn btn-secondary"
+        @click.prevent="addTag"
+        :disabled="disableButton"
+      >
+        ADD TAG
+      </button>
     </div>
   </div>
 
@@ -53,4 +59,8 @@ const addTag = () => {
 const removeTag = (tag: string) => {
   emit("removeTag", tag);
 };
+
+const disableButton = computed(
+  () => tempTag.value === "" || props.tags.some((t) => t === tempTag.value)
+);
 </script>
