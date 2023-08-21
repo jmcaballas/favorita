@@ -19,7 +19,6 @@ import { Favorites } from "@/types/types";
 
 const store = useFavoritesStore();
 const { addFavorite } = store;
-const router = useRouter();
 
 const name = ref("");
 const description = ref("");
@@ -35,7 +34,7 @@ const removeTag = (tag: string) => {
   tags.value = tags.value.filter((item) => item !== tag);
 };
 
-const handleAdd = () => {
+const handleAdd = async () => {
   const newFavorite: Favorites = {
     id: 6,
     name: name.value,
@@ -46,6 +45,6 @@ const handleAdd = () => {
   };
 
   addFavorite(newFavorite);
-  router.push({ path: "/" });
+  await navigateTo({ path: "/" });
 };
 </script>
