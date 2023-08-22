@@ -32,7 +32,6 @@
                   User
                 </NuxtLink>
               </li>
-              <li><a class="hover:bg-secondary-focus">Tags</a></li>
               <li><a class="hover:bg-secondary-focus">Theme</a></li>
               <li><a class="hover:bg-secondary-focus">Logout</a></li>
             </ul>
