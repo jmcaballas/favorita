@@ -1,7 +1,7 @@
 <template>
   <div class="container mx-auto p-4 h-screen">
     <form
-      @submit.prevent="handleAdd"
+      @submit.prevent="handleEdit"
       class="form-control flex justify-center w-full"
     >
       <EditFavoriteText v-model:name="name" v-model:description="description" />
@@ -18,17 +18,27 @@
 </template>
 
 <script setup lang="ts">
+import { storeToRefs } from "pinia";
 import { useFavoritesStore } from "@/store/favorites";
 import { Favorites } from "@/types/types";
 
 const store = useFavoritesStore();
-const { addFavorite } = store;
+const { favorites } = storeToRefs(store);
+const { editFavorite } = store;
+const route = useRoute();
 
-const name = useState("EditName", () => "");
-const description = useState("EditDescription", () => "");
-const tags = useState<string[]>("EditTags", () => []);
+const favorite = computed(() =>
+  favorites.value.find((item) => item.id === Number(route.query.id))
+);
+
+const name = useState("EditName", () => favorite.value?.name ?? "");
+const description = useState(
+  "EditDescription",
+  () => favorite.value?.description ?? ""
+);
+const tags = useState<string[]>("EditTags", () => favorite.value?.tags ?? []);
 const photo = useState("EditPhoto", () => "");
-const location = useState("EditLocation", () => "");
+const location = useState("EditLocation", () => favorite.value?.location ?? "");
 
 const addTag = (tag: string) => {
   tags.value.push(tag);
@@ -38,9 +48,9 @@ const removeTag = (tag: string) => {
   tags.value = tags.value.filter((item) => item !== tag);
 };
 
-const handleAdd = async () => {
+const handleEdit = async () => {
   const EditFavorite: Favorites = {
-    id: 6,
+    id: Number(route.query.id),
     name: name.value,
     description: description.value,
     photo: "/_nuxt/assets/img/banana.jpg",
@@ -48,7 +58,7 @@ const handleAdd = async () => {
     location: location.value,
   };
 
-  addFavorite(EditFavorite);
+  editFavorite(Number(route.query.id), EditFavorite);
   await navigateTo({ path: "/" });
 };
 </script>

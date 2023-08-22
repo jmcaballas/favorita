@@ -64,7 +64,12 @@ const favorite = computed(() =>
 );
 
 const handleEdit = async () => {
-  await navigateTo({ path: "/edit-favorite" });
+  await navigateTo({
+    path: "/edit-favorite",
+    query: {
+      id: route.params.id,
+    },
+  });
 };
 
 const handleDelete = async () => {
