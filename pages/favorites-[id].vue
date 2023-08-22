@@ -24,14 +24,27 @@
       </div>
 
       <div class="flex justify-around m-4">
-        <div class="btn btn-secondary w-5/12">
-          <Icon name="ci:edit-pencil-01" size="1.5em" />
+        <div class="btn w-6/12">
+          <Icon name="ci:edit-pencil-01" size="2em" />
           EDIT
         </div>
-        <div class="btn btn-secondary w-5/12" @click="handleDelete">
-          <Icon name="ci:trash-full" size="1.5em" />
+
+        <button class="btn w-6/12" onclick="modal.showModal()">
+          <Icon name="ci:trash-full" size="2em" />
           DELETE
-        </div>
+        </button>
+        <dialog id="modal" class="modal">
+          <form method="dialog" class="modal-box">
+            <h3 class="font-bold text-lg">Are you sure?</h3>
+            <p class="py-4">This will delete your Favorite permanently.</p>
+            <div class="modal-action">
+              <button class="btn" onclick="modal.close()">CANCEL</button>
+              <button class="btn btn-secondary" @click="handleDelete">
+                DELETE
+              </button>
+            </div>
+          </form>
+        </dialog>
       </div>
     </div>
   </div>
