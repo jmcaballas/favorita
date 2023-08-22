@@ -27,13 +27,24 @@
                 <NuxtLink
                   to="/new-favorite"
                   onclick="document.activeElement.blur()"
-                  class="hover:bg-secondary-focus"
+                  class="flex items-center hover:bg-secondary-focus"
                 >
+                  <Icon name="ci:user" size="1.5em" />
                   User
                 </NuxtLink>
               </li>
-              <li><a class="hover:bg-secondary-focus">Theme</a></li>
-              <li><a class="hover:bg-secondary-focus">Logout</a></li>
+              <li>
+                <div class="flex items-center hover:bg-secondary-focus">
+                  <Icon name="ci:bulb" size="1.5em" />
+                  <p>Theme</p>
+                </div>
+              </li>
+              <li>
+                <div class="flex items-center hover:bg-secondary-focus">
+                  <Icon name="ci:log-out" size="1.5em" />
+                  <p>Logout</p>
+                </div>
+              </li>
             </ul>
           </div>
         </nav>
