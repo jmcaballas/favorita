@@ -24,7 +24,7 @@
       </div>
 
       <div class="flex justify-around m-4">
-        <div class="btn w-6/12">
+        <div class="btn w-6/12" @click="handleEdit">
           <Icon name="ci:edit-pencil-01" size="2em" />
           EDIT
         </div>
@@ -62,6 +62,10 @@ const route = useRoute();
 const favorite = computed(() =>
   favorites.value.find((item) => item.id === Number(route.params.id))
 );
+
+const handleEdit = async () => {
+  await navigateTo({ path: "/edit-favorite" });
+};
 
 const handleDelete = async () => {
   deleteFavorite(Number(route.params.id));
