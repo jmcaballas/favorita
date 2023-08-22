@@ -65,12 +65,18 @@ export const useFavoritesStore = defineStore("favorites", () => {
     favorites.value.push(newFavorite);
   }
 
-  function editFavorite(index: number, newFavorite: Favorites) {
-    favorites.value[index] = newFavorite;
+  function editFavorite(id: number, newFavorite: Favorites) {
+    const index = favorites.value.findIndex((fav) => fav.id === id);
+    if (index !== -1) {
+      favorites.value[index] = newFavorite;
+    }
   }
 
-  function deleteFavorite(index: number) {
-    favorites.value.splice(index, 1);
+  function deleteFavorite(id: number) {
+    const index = favorites.value.findIndex((fav) => fav.id === id);
+    if (index !== -1) {
+      favorites.value.splice(index, 1);
+    }
   }
 
   return { favorites, addFavorite, editFavorite, deleteFavorite };
