@@ -60,12 +60,18 @@ const handleDropdownClick = () => {
   isDropdownOpen.value = !isDropdownOpen.value;
 };
 
-const handleDropdownFocusLost = ({ relatedTarget, currentTarget }) => {
+const handleDropdownFocusLost = (event: FocusEvent) => {
+  const { relatedTarget, currentTarget } = event;
+
   if (
-    relatedTarget instanceof HTMLElement &&
-    currentTarget.contains(relatedTarget)
-  )
-    return;
+    currentTarget instanceof HTMLElement &&
+    relatedTarget instanceof HTMLElement
+  ) {
+    if (currentTarget.contains(relatedTarget)) {
+      return;
+    }
+  }
+
   isDropdownOpen.value = false;
 };
 </script>
