@@ -2,6 +2,7 @@
   <header>
     <div
       class="card card-compact bg-base-200 m-4 shadow-md cursor-pointer md:h-[350px] lg:h-[380px]"
+      @click="handleNavigate(favorite.id)"
     >
       <figure>
         <img
@@ -39,4 +40,8 @@ const props = defineProps<{
 }>();
 
 const slicedTags = computed(() => props.favorite.tags?.slice(0, 4));
+
+const handleNavigate = async (id: number) => {
+  await navigateTo({ path: `/favorites-${id}` });
+};
 </script>

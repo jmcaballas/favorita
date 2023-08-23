@@ -13,7 +13,6 @@
         :key="favorite.id"
         :favorite="favorite"
         class="w-full md:w-1/3 lg:w-1/4"
-        @click="handleNavigate(favorite.id)"
       />
     </div>
   </div>
@@ -25,8 +24,4 @@ import { useFavoritesStore } from "@/store/favorites";
 
 const store = useFavoritesStore();
 const { favorites } = storeToRefs(store);
-
-const handleNavigate = async (id: number) => {
-  await navigateTo({ path: `/favorites-${id}` });
-};
 </script>
