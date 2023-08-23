@@ -34,7 +34,10 @@
                 </NuxtLink>
               </li>
               <li>
-                <div class="flex items-center hover:bg-secondary-focus">
+                <div
+                  class="flex items-center hover:bg-secondary-focus"
+                  @click="toggleTheme"
+                >
                   <Icon name="ci:bulb" size="1.5em" />
                   <p>Theme</p>
                 </div>
@@ -55,6 +58,7 @@
 
 <script setup lang="ts">
 const isDropdownOpen = useState("isDropdownOpen", () => false);
+const theme = useState("theme", () => "cupcake");
 
 const handleDropdownClick = () => {
   isDropdownOpen.value = !isDropdownOpen.value;
@@ -74,4 +78,16 @@ const handleDropdownFocusLost = (event: FocusEvent) => {
 
   isDropdownOpen.value = false;
 };
+
+const toggleTheme = () => {
+  theme.value = theme.value === "cupcake" ? "dracula" : "cupcake";
+};
+
+onMounted(() => {
+  document.querySelector("html")?.setAttribute("data-theme", theme.value);
+});
+
+watch(theme, (newTheme) => {
+  document.querySelector("html")?.setAttribute("data-theme", newTheme);
+});
 </script>
