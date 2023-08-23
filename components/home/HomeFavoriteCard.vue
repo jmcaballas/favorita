@@ -1,7 +1,7 @@
 <template>
   <header>
     <div
-      class="card card-compact bg-base-200 m-4 shadow-md cursor-pointer md:h-[350px] lg:h-[400px]"
+      class="card card-compact bg-base-200 m-4 shadow-md cursor-pointer md:h-[350px] lg:h-[380px]"
     >
       <figure>
         <img
@@ -11,7 +11,7 @@
         />
       </figure>
 
-      <div class="card-body">
+      <div class="card-body flex-col">
         <h2 class="card-title">{{ favorite.name }}</h2>
         <div class="flex flex-wrap">
           <div
@@ -22,7 +22,7 @@
             {{ tag.length > 20 ? tag.slice(0, 20) + "..." : tag }}
           </div>
         </div>
-        <div v-show="favorite.location" class="flex items-center">
+        <div v-show="favorite.location" class="flex items-center mt-auto">
           <Icon name="ci:location-outline" size="1.5em" />
           <p>{{ favorite.location }}</p>
         </div>
