@@ -87,7 +87,7 @@ onMounted(() => {
   if (!localStorage.getItem("favorita-theme")) {
     localStorage.setItem("favorita-theme", "cupcake");
   }
-  theme.value = localStorage.getItem("favorita-theme");
+  theme.value = localStorage.getItem("favorita-theme") || "cupcake";
   document.querySelector("html")?.setAttribute("data-theme", theme.value);
 });
 

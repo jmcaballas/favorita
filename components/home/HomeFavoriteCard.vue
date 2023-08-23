@@ -1,17 +1,21 @@
 <template>
   <header>
     <div
-      class="card card-compact xl:card-side bg-base-200 m-4 shadow-md cursor-pointer"
+      class="card card-compact bg-base-200 m-4 shadow-md cursor-pointer md:h-[350px] lg:h-[400px]"
     >
       <figure>
-        <img :src="favorite.photo" alt="" class="object-cover h-48 w-full" />
+        <img
+          :src="favorite.photo"
+          alt=""
+          class="object-cover h-48 lg:h-60 w-full"
+        />
       </figure>
 
       <div class="card-body">
         <h2 class="card-title">{{ favorite.name }}</h2>
         <div class="flex flex-wrap">
           <div
-            v-for="tag in favorite.tags"
+            v-for="tag in slicedTags"
             :key="tag"
             class="mr-1 mb-1 btn btn-xs btn-accent no-animation w-min"
           >
@@ -30,7 +34,9 @@
 <script setup lang="ts">
 import { Favorites } from "@/types/types";
 
-defineProps<{
+const props = defineProps<{
   favorite: Favorites;
 }>();
+
+const slicedTags = computed(() => props.favorite.tags?.slice(0, 4));
 </script>
