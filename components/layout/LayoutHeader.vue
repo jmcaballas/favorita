@@ -84,10 +84,15 @@ const toggleTheme = () => {
 };
 
 onMounted(() => {
+  if (!localStorage.getItem("favorita-theme")) {
+    localStorage.setItem("favorita-theme", "cupcake");
+  }
+  theme.value = localStorage.getItem("favorita-theme");
   document.querySelector("html")?.setAttribute("data-theme", theme.value);
 });
 
 watch(theme, (newTheme) => {
   document.querySelector("html")?.setAttribute("data-theme", newTheme);
+  localStorage.setItem("favorita-theme", newTheme);
 });
 </script>
