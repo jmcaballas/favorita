@@ -6,6 +6,8 @@ import {
   signInWithEmailAndPassword,
   onAuthStateChanged,
 } from "firebase/auth";
+import { storeToRefs } from "pinia";
+import { useFirebaseUserStore } from "@/store/firebaseUser";
 
 export const createUser = async (email: string, password: string) => {
   const auth = getAuth();
@@ -35,8 +37,10 @@ export const signInUser = async (email: string, password: string) => {
 
 export const initUser = async () => {
   const auth = getAuth();
-  // const firebaseUser = useFirebaseUser();
-  // firebaseUser.value = auth.currentUser;
+  const store = useFirebaseUserStore();
+  const { firebaseUser } = storeToRefs(store);
+
+  firebaseUser.value = auth.currentUser;
 
   // const userCookie = useCookie("userCookie");
 
@@ -53,7 +57,7 @@ export const initUser = async () => {
       console.log("Auth changed", user);
     }
 
-    // firebaseUser.value = user;
+    firebaseUser.value = user;
 
     // @ts-ignore
     // userCookie.value = user; //ignore error because nuxt will serialize to json
