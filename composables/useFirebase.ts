@@ -1,9 +1,10 @@
-//https://firebase.google.com/docs/auth/web/start
-
 import {
-  getAuth,
   createUserWithEmailAndPassword,
+  getAuth,
+  getRedirectResult,
+  GoogleAuthProvider,
   signInWithEmailAndPassword,
+  signInWithRedirect,
   onAuthStateChanged,
 } from "firebase/auth";
 import { storeToRefs } from "pinia";
@@ -42,8 +43,6 @@ export const initUser = async () => {
 
   firebaseUser.value = auth.currentUser;
 
-  // const userCookie = useCookie("userCookie");
-
   // const router = useRouter();
 
   onAuthStateChanged(auth, (user) => {
@@ -56,14 +55,6 @@ export const initUser = async () => {
     }
 
     firebaseUser.value = user;
-
-    // @ts-ignore
-    // userCookie.value = user; //ignore error because nuxt will serialize to json
-
-    // $fetch("/api/auth", {
-    //   method: "POST",
-    //   body: { user },
-    // });
   });
 };
 
@@ -71,4 +62,16 @@ export const signOutUser = async () => {
   const auth = getAuth();
   const result = await auth.signOut();
   return result;
+};
+
+export const signInGoogle = async () => {
+  const auth = getAuth();
+  const provider = new GoogleAuthProvider();
+  await signInWithRedirect(auth, provider);
+
+  const credentials = await getRedirectResult(auth).catch((error) => {
+    const errorCode = error.code;
+    const errorMessage = error.message;
+  });
+  return credentials;
 };

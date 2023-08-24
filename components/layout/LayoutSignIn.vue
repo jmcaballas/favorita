@@ -8,7 +8,7 @@
 <script setup lang="ts">
 const handleSignIn = async () => {
   try {
-    const result = await signInUser("meow@meow.com", "meowmeow");
+    const result = await signInGoogle();
   } catch (error) {}
 };
 </script>
