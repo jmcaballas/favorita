@@ -12,9 +12,6 @@
 const handleSignOut = async () => {
   try {
     const result = await signOutUser();
-    console.log(result);
-  } catch (error) {
-    console.log(error);
-  }
+  } catch (error) {}
 };
 </script>

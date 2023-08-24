@@ -27,10 +27,10 @@
           <p>Theme</p>
         </div>
       </li>
-      <li>
+      <li v-if="!firebaseUser">
         <LayoutSignIn />
       </li>
-      <li>
+      <li v-else>
         <LayoutSignOut />
       </li>
     </ul>
@@ -38,6 +38,12 @@
 </template>
 
 <script setup lang="ts">
+import { useFirebaseUserStore } from "@/store/firebaseUser";
+import { storeToRefs } from "pinia";
+
+const store = useFirebaseUserStore();
+const { firebaseUser } = storeToRefs(store);
+
 const isDropdownOpen = useState("isDropdownOpen", () => false);
 const theme = useState("theme", () => "cupcake");
 

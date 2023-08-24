@@ -1,6 +1,6 @@
 <template>
   <div class="flex items-center hover:bg-secondary-focus" @click="handleSignIn">
-    <Icon name="ci:log-out" size="1.5em" />
+    <Icon name="ci:google" size="1.5em" />
     <p>Sign in</p>
   </div>
 </template>
@@ -9,9 +9,6 @@
 const handleSignIn = async () => {
   try {
     const result = await signInUser("meow@meow.com", "meowmeow");
-    console.log(result);
-  } catch (error) {
-    console.log(error);
-  }
+  } catch (error) {}
 };
 </script>
