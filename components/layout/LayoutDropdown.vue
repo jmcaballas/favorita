@@ -28,10 +28,10 @@
         </div>
       </li>
       <li>
-        <div class="flex items-center hover:bg-secondary-focus">
-          <Icon name="ci:log-out" size="1.5em" />
-          <p>Logout</p>
-        </div>
+        <LayoutSignIn />
+      </li>
+      <li>
+        <LayoutSignOut />
       </li>
     </ul>
   </div>
