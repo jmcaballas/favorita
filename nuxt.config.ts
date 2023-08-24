@@ -15,4 +15,13 @@ export default defineNuxtConfig({
       },
     },
   },
+  runtimeConfig: {
+    apiKey: "",
+    authDomain: "",
+    projectId: "",
+    storageBucket: "",
+    messagingSenderId: "",
+    appId: "",
+    measurementId: "",
+  },
 });
