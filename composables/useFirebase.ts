@@ -1,6 +1,6 @@
 import {
+  Auth,
   createUserWithEmailAndPassword,
-  getAuth,
   getRedirectResult,
   GoogleAuthProvider,
   signInWithEmailAndPassword,
@@ -11,7 +11,9 @@ import { storeToRefs } from "pinia";
 import { useFirebaseUserStore } from "@/store/firebaseUser";
 
 export const createUser = async (email: string, password: string) => {
-  const auth = getAuth();
+  const nuxtApp = useNuxtApp();
+  const auth = nuxtApp.$auth as Auth;
+
   const credentials = await createUserWithEmailAndPassword(
     auth,
     email,
@@ -24,7 +26,9 @@ export const createUser = async (email: string, password: string) => {
 };
 
 export const signInUser = async (email: string, password: string) => {
-  const auth = getAuth();
+  const nuxtApp = useNuxtApp();
+  const auth = nuxtApp.$auth as Auth;
+
   const credentials = await signInWithEmailAndPassword(
     auth,
     email,
@@ -37,7 +41,9 @@ export const signInUser = async (email: string, password: string) => {
 };
 
 export const initUser = async () => {
-  const auth = getAuth();
+  const nuxtApp = useNuxtApp();
+  const auth = nuxtApp.$auth as Auth;
+
   const store = useFirebaseUserStore();
   const { firebaseUser } = storeToRefs(store);
 
@@ -59,13 +65,17 @@ export const initUser = async () => {
 };
 
 export const signOutUser = async () => {
-  const auth = getAuth();
+  const nuxtApp = useNuxtApp();
+  const auth = nuxtApp.$auth as Auth;
+
   const result = await auth.signOut();
   return result;
 };
 
 export const signInGoogle = async () => {
-  const auth = getAuth();
+  const nuxtApp = useNuxtApp();
+  const auth = nuxtApp.$auth as Auth;
+
   const provider = new GoogleAuthProvider();
   await signInWithRedirect(auth, provider);
 
