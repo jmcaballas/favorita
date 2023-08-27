@@ -39,7 +39,11 @@
             <p class="py-4">This will delete your Favorite permanently.</p>
             <div class="modal-action">
               <button class="btn" onclick="modal.close()">CANCEL</button>
-              <button class="btn btn-secondary" @click="handleDelete">
+              <button
+                class="btn btn-secondary"
+                @click="handleDelete"
+                type="button"
+              >
                 DELETE
               </button>
             </div>
