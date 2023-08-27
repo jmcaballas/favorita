@@ -36,7 +36,7 @@ const removeTag = (tag: string) => {
 
 const handleAdd = async () => {
   const newFavorite: Favorites = {
-    id: 6,
+    id: "0",
     name: name.value,
     description: description.value,
     photo: "/_nuxt/assets/img/banana.jpg",

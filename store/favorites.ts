@@ -29,7 +29,7 @@ export const useFavoritesStore = defineStore("favorites", () => {
 
         const snapshot = await getDocs(favoritesRef);
 
-        const docs = Array.from(snapshot.docs).map((doc) => {
+        const docs: Favorites[] = Array.from(snapshot.docs).map((doc) => {
           return {
             id: doc.id,
             name: doc.data().name,
@@ -37,6 +37,7 @@ export const useFavoritesStore = defineStore("favorites", () => {
             tags: doc.data().tags,
             photo: doc.data().photo,
             location: doc.data().location,
+            timestamp: doc.data().timestamp,
           };
         });
 
@@ -66,7 +67,7 @@ export const useFavoritesStore = defineStore("favorites", () => {
           timestamp: serverTimestamp(),
         };
 
-        const docRef = await addDoc(favoritesRef, newFavorite);
+        const docRef = await addDoc(favoritesRef, newFavoriteWithTimestamp);
         getFavorites();
 
         return docRef;
