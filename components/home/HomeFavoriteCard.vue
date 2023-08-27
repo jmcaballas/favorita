@@ -41,7 +41,7 @@ const props = defineProps<{
 
 const slicedTags = computed(() => props.favorite.tags?.slice(0, 4));
 
-const handleNavigate = async (id: number) => {
+const handleNavigate = async (id: string) => {
   await navigateTo({ path: `/favorites-${id}` });
 };
 </script>

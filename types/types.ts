@@ -1,5 +1,5 @@
 export type Favorites = {
-  id: number;
+  id: string;
   name: string;
   description?: string;
   tags?: string[];

@@ -1,99 +1,95 @@
 import { ref } from "vue";
 import { defineStore } from "pinia";
+import { Auth } from "firebase/auth";
+import {
+  addDoc,
+  collection,
+  Firestore,
+  getDocs,
+  serverTimestamp,
+} from "firebase/firestore";
 import { Favorites } from "@/types/types";
 
 export const useFavoritesStore = defineStore("favorites", () => {
-  const favorites = ref<Favorites[]>([
-    {
-      id: 0,
-      name: "Banana",
-      description:
-        "This is my favorite fruit! This is my favorite fruit! This is my favorite fruit! This is my favorite fruit! This is my favorite fruit!",
-      photo: "/_nuxt/assets/img/banana.jpg",
-      tags: [
-        "fruit",
-        "yellow",
-        "yummy",
-        "good",
-        "great",
-        "best",
-        "amazing",
-        "fresh",
-        "delicious",
-      ],
-      location: "Anywhere",
-    },
-    {
-      id: 1,
-      name: "Apple",
-      description: "This is a red fruit!",
-      photo: "/_nuxt/assets/img/apple.jpg",
-      tags: ["fruit", "red", "delicious"],
-      location: "Everywhere",
-    },
-    {
-      id: 2,
-      name: "Mango",
-      description: "This is a good fruit!",
-      photo: "/_nuxt/assets/img/mango.jpg",
-      tags: ["fruit", "fresh"],
-      location: "Elsewhere",
-    },
-    {
-      id: 3,
-      name: "Dragonfruit",
-      description: "This is a yummy fruit!",
-      photo: "/_nuxt/assets/img/dragonfruit.jpg",
-    },
-    {
-      id: 4,
-      name: "Watermelon",
-      description: "This is a big fruit!",
-      photo: "/_nuxt/assets/img/watermelon.jpg",
-    },
-    {
-      id: 5,
-      name: "Orange",
-      description: "This is an orange fruit!",
-      photo: "/_nuxt/assets/img/orange.jpg",
-      tags: [
-        "veryveryveryveryverylongtag",
-        "veryveryveryveryverylongtag",
-        "veryveryveryveryverylongtag",
-        "veryveryveryveryverylongtag",
-        "fruit",
-        "orange",
-        "citrus",
-        "yummy",
-        "good",
-        "great",
-        "delicious",
-        "fresh",
-        "amazing",
-        "best",
-        "round",
-      ],
-      location: "Nowhere",
-    },
-  ]);
+  const favorites = ref<Favorites[]>([]);
 
-  function addFavorite(newFavorite: Favorites) {
-    favorites.value.push(newFavorite);
-  }
+  async function getFavorites() {
+    const nuxtApp = useNuxtApp();
+    const auth = nuxtApp.$auth as Auth;
+    const firestore = nuxtApp.$firestore as Firestore;
 
-  function editFavorite(id: number, newFavorite: Favorites) {
-    const index = favorites.value.findIndex((fav) => fav.id === id);
-    if (index !== -1) {
-      favorites.value[index] = newFavorite;
+    try {
+      if (auth.currentUser) {
+        const favoritesRef = collection(
+          firestore,
+          "users",
+          auth.currentUser.uid,
+          "favorites"
+        );
+
+        const snapshot = await getDocs(favoritesRef);
+
+        const docs = Array.from(snapshot.docs).map((doc) => {
+          return {
+            id: doc.id,
+            name: doc.data().name,
+            description: doc.data().description,
+            tags: doc.data().tags,
+            photo: doc.data().photo,
+            location: doc.data().location,
+          };
+        });
+
+        favorites.value = docs;
+      }
+    } catch (e) {
+      console.error("Error retrieving document: ", e);
     }
   }
 
-  function deleteFavorite(id: number) {
-    const index = favorites.value.findIndex((fav) => fav.id === id);
-    if (index !== -1) {
-      favorites.value.splice(index, 1);
+  async function addFavorite(newFavorite: Favorites) {
+    const nuxtApp = useNuxtApp();
+    const auth = nuxtApp.$auth as Auth;
+    const firestore = nuxtApp.$firestore as Firestore;
+
+    try {
+      if (auth.currentUser) {
+        const favoritesRef = collection(
+          firestore,
+          "users",
+          auth.currentUser.uid,
+          "favorites"
+        );
+
+        const newFavoriteWithTimestamp = {
+          ...newFavorite,
+          timestamp: serverTimestamp(),
+        };
+
+        const docRef = await addDoc(favoritesRef, newFavorite);
+        getFavorites();
+
+        return docRef;
+      }
+    } catch (e) {
+      console.error("Error adding document: ", e);
     }
   }
 
-  return { favorites, addFavorite, editFavorite, deleteFavorite };
+  // function editFavorite(id: number, newFavorite: Favorites) {
+  //   const index = favorites.value.findIndex((fav) => fav.id === id);
+  //   if (index !== -1) {
+  //     favorites.value[index] = newFavorite;
+  //   }
+  // }
+
+  // function deleteFavorite(id: number) {
+  //   const index = favorites.value.findIndex((fav) => fav.id === id);
+  //   if (index !== -1) {
+  //     favorites.value.splice(index, 1);
+  //   }
+  // }
+
+  // return { favorites, addFavorite, editFavorite, deleteFavorite };
+  return { favorites, getFavorites, addFavorite };
 });

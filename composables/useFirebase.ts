@@ -9,6 +9,7 @@ import {
 } from "firebase/auth";
 import { storeToRefs } from "pinia";
 import { useFirebaseUserStore } from "@/store/firebaseUser";
+import { useFavoritesStore } from "@/store/favorites";
 
 export const createUser = async (email: string, password: string) => {
   const nuxtApp = useNuxtApp();
@@ -44,17 +45,20 @@ export const initUser = async () => {
   const nuxtApp = useNuxtApp();
   const auth = nuxtApp.$auth as Auth;
 
-  const store = useFirebaseUserStore();
-  const { firebaseUser } = storeToRefs(store);
+  const firebaseStore = useFirebaseUserStore();
+  const favoritesStore = useFavoritesStore();
+  const { firebaseUser } = storeToRefs(firebaseStore);
+  const { getFavorites } = favoritesStore;
 
   firebaseUser.value = auth.currentUser;
 
   // const router = useRouter();
 
-  onAuthStateChanged(auth, (user) => {
+  onAuthStateChanged(auth, async (user) => {
     if (user) {
       // User is signed in, see docs for a list of available properties
       // https://firebase.google.com/docs/reference/js/firebase.User
+      await getFavorites();
     } else {
       //if signed out
       // router.push("/");

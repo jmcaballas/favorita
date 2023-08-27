@@ -60,7 +60,7 @@ const { deleteFavorite } = store;
 const route = useRoute();
 
 const favorite = computed(() =>
-  favorites.value.find((item) => item.id === Number(route.params.id))
+  favorites.value.find((item) => item.id === route.params.id)
 );
 
 const handleEdit = async () => {
