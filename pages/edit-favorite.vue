@@ -25,11 +25,11 @@ import { Favorites } from "@/types/types";
 const store = useFavoritesStore();
 const { favorites } = storeToRefs(store);
 const { editFavorite } = store;
-const route = useRoute();
 
-const favorite = computed(() =>
-  favorites.value.find((item) => item.id === Number(route.query.id))
-);
+const route = useRoute();
+const id = route.query.id ? route.query.id.toString() : "";
+
+const favorite = computed(() => favorites.value.find((item) => item.id === id));
 
 const name = useState("EditName", () => favorite.value?.name ?? "");
 const description = useState(
@@ -49,8 +49,8 @@ const removeTag = (tag: string) => {
 };
 
 const handleEdit = async () => {
-  const EditFavorite: Favorites = {
-    id: Number(route.query.id),
+  const UpdatedFavorite: Favorites = {
+    id: id,
     name: name.value,
     description: description.value,
     photo: "/_nuxt/assets/img/banana.jpg",
@@ -58,7 +58,7 @@ const handleEdit = async () => {
     location: location.value,
   };
 
-  editFavorite(Number(route.query.id), EditFavorite);
+  editFavorite(id, UpdatedFavorite);
   await navigateTo({ path: "/" });
 };
 </script>

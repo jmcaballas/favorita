@@ -4,9 +4,11 @@ import { Auth } from "firebase/auth";
 import {
   addDoc,
   collection,
+  doc,
   Firestore,
   getDocs,
   serverTimestamp,
+  updateDoc,
 } from "firebase/firestore";
 import { Favorites } from "@/types/types";
 
@@ -20,14 +22,14 @@ export const useFavoritesStore = defineStore("favorites", () => {
 
     try {
       if (auth.currentUser) {
-        const favoritesRef = collection(
+        const colRef = collection(
           firestore,
           "users",
           auth.currentUser.uid,
           "favorites"
         );
 
-        const snapshot = await getDocs(favoritesRef);
+        const snapshot = await getDocs(colRef);
 
         const docs: Favorites[] = Array.from(snapshot.docs).map((doc) => {
           return {
@@ -55,7 +57,7 @@ export const useFavoritesStore = defineStore("favorites", () => {
 
     try {
       if (auth.currentUser) {
-        const favoritesRef = collection(
+        const colRef = collection(
           firestore,
           "users",
           auth.currentUser.uid,
@@ -67,7 +69,40 @@ export const useFavoritesStore = defineStore("favorites", () => {
           timestamp: serverTimestamp(),
         };
 
-        const docRef = await addDoc(favoritesRef, newFavoriteWithTimestamp);
+        const docRef = await addDoc(colRef, newFavoriteWithTimestamp);
+        getFavorites();
+
+        return docRef;
+      }
+    } catch (e) {
+      console.error("Error adding document: ", e);
+    }
+  }
+
+  async function editFavorite(docId: string, updatedFavorite: Favorites) {
+    const nuxtApp = useNuxtApp();
+    const auth = nuxtApp.$auth as Auth;
+    const firestore = nuxtApp.$firestore as Firestore;
+
+    try {
+      if (auth.currentUser) {
+        const favoriteRef = doc(
+          firestore,
+          "users",
+          auth.currentUser.uid,
+          "favorites",
+          docId
+        );
+
+        const updatedFavoriteWithTimestamp = {
+          ...updatedFavorite,
+          timestamp: serverTimestamp(),
+        };
+
+        const docRef = await updateDoc(
+          favoriteRef,
+          updatedFavoriteWithTimestamp
+        );
         getFavorites();
 
         return docRef;
@@ -92,5 +127,5 @@ export const useFavoritesStore = defineStore("favorites", () => {
   // }
 
   // return { favorites, addFavorite, editFavorite, deleteFavorite };
-  return { favorites, getFavorites, addFavorite };
+  return { favorites, getFavorites, addFavorite, editFavorite };
 });
