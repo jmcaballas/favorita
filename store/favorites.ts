@@ -45,6 +45,8 @@ export const useFavoritesStore = defineStore("favorites", () => {
         });
 
         favorites.value = docs;
+      } else {
+        favorites.value = [];
       }
     } catch (e) {
       console.error("Error retrieving document: ", e);

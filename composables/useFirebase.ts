@@ -72,7 +72,11 @@ export const signOutUser = async () => {
   const nuxtApp = useNuxtApp();
   const auth = nuxtApp.$auth as Auth;
 
+  const favoritesStore = useFavoritesStore();
+  const { getFavorites } = favoritesStore;
+
   const result = await auth.signOut();
+  await getFavorites();
   return result;
 };
 
