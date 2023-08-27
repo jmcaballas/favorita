@@ -57,7 +57,9 @@ import { useFavoritesStore } from "@/store/favorites";
 const store = useFavoritesStore();
 const { favorites } = storeToRefs(store);
 const { deleteFavorite } = store;
+
 const route = useRoute();
+const id = route.params.id ? route.params.id.toString() : "";
 
 const favorite = computed(() =>
   favorites.value.find((item) => item.id === route.params.id)
@@ -73,7 +75,7 @@ const handleEdit = async () => {
 };
 
 const handleDelete = async () => {
-  deleteFavorite(Number(route.params.id));
+  deleteFavorite(id);
   await navigateTo({ path: "/" });
 };
 </script>

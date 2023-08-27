@@ -4,6 +4,7 @@ import { Auth } from "firebase/auth";
 import {
   addDoc,
   collection,
+  deleteDoc,
   doc,
   Firestore,
   getDocs,
@@ -108,24 +109,34 @@ export const useFavoritesStore = defineStore("favorites", () => {
         return docRef;
       }
     } catch (e) {
-      console.error("Error adding document: ", e);
+      console.error("Error editing document: ", e);
     }
   }
 
-  // function editFavorite(id: number, newFavorite: Favorites) {
-  //   const index = favorites.value.findIndex((fav) => fav.id === id);
-  //   if (index !== -1) {
-  //     favorites.value[index] = newFavorite;
-  //   }
-  // }
+  async function deleteFavorite(docId: string) {
+    const nuxtApp = useNuxtApp();
+    const auth = nuxtApp.$auth as Auth;
+    const firestore = nuxtApp.$firestore as Firestore;
 
-  // function deleteFavorite(id: number) {
-  //   const index = favorites.value.findIndex((fav) => fav.id === id);
-  //   if (index !== -1) {
-  //     favorites.value.splice(index, 1);
-  //   }
-  // }
+    try {
+      if (auth.currentUser) {
+        const favoriteRef = doc(
+          firestore,
+          "users",
+          auth.currentUser.uid,
+          "favorites",
+          docId
+        );
 
-  // return { favorites, addFavorite, editFavorite, deleteFavorite };
-  return { favorites, getFavorites, addFavorite, editFavorite };
+        const docRef = await deleteDoc(favoriteRef);
+        getFavorites();
+
+        return docRef;
+      }
+    } catch (e) {
+      console.error("Error deleting document: ", e);
+    }
+  }
+
+  return { favorites, getFavorites, addFavorite, editFavorite, deleteFavorite };
 });
