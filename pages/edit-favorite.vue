@@ -27,18 +27,26 @@ const { favorites } = storeToRefs(store);
 const { editFavorite } = store;
 
 const route = useRoute();
-const id = route.query.id ? route.query.id.toString() : "";
+const id = useState("EditId", () => "");
 
-const favorite = computed(() => favorites.value.find((item) => item.id === id));
-
-const name = useState("EditName", () => favorite.value?.name ?? "");
-const description = useState(
-  "EditDescription",
-  () => favorite.value?.description ?? ""
+const favorite = computed(() =>
+  favorites.value.find((item) => item.id === id.value)
 );
-const tags = useState<string[]>("EditTags", () => favorite.value?.tags ?? []);
+
+const name = useState("EditName", () => "");
+const description = useState("EditDescription", () => "");
+const tags = useState<string[]>("EditTags", () => []);
 const photo = useState("EditPhoto", () => "");
-const location = useState("EditLocation", () => favorite.value?.location ?? "");
+const location = useState("EditLocation", () => "");
+
+onMounted(() => {
+  id.value = route.query.id?.toString() ?? "";
+  name.value = favorite.value?.name ?? "";
+  description.value = favorite.value?.description ?? "";
+  tags.value = favorite.value?.tags ?? [];
+  photo.value = favorite.value?.photo ?? "";
+  location.value = favorite.value?.location ?? "";
+});
 
 const addTag = (tag: string) => {
   tags.value.push(tag);
@@ -50,7 +58,7 @@ const removeTag = (tag: string) => {
 
 const handleEdit = async () => {
   const UpdatedFavorite: Favorites = {
-    id: id,
+    id: id.value,
     name: name.value,
     description: description.value,
     photo: "/_nuxt/assets/img/banana.jpg",
@@ -58,7 +66,7 @@ const handleEdit = async () => {
     location: location.value,
   };
 
-  editFavorite(id, UpdatedFavorite);
+  editFavorite(id.value, UpdatedFavorite);
   await navigateTo({ path: "/" });
 };
 </script>
