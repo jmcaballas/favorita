@@ -10,7 +10,7 @@
         @add-tag="addTag"
         @remove-tag="removeTag"
       />
-      <EditFavoritePhoto @file-added="captureFile($event)" />
+      <EditFavoritePhoto @file-updated="captureFile($event)" />
       <EditFavoriteLocation v-model:location="location" />
       <button class="btn btn-secondary mt-9">SUBMIT</button>
     </form>

@@ -11,7 +11,7 @@
 </template>
 
 <script setup lang="ts">
-const emit = defineEmits(["file-added"]);
+const emit = defineEmits(["file-updated"]);
 
 const onFileChange = (event: Event) => {
   const target = event.target as HTMLInputElement;
@@ -21,6 +21,6 @@ const onFileChange = (event: Event) => {
   }
 
   const file = target.files[0];
-  emit("file-added", file);
+  emit("file-updated", file);
 };
 </script>
