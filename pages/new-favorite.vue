@@ -45,6 +45,13 @@ const handleAdd = async () => {
   };
 
   addFavorite(newFavorite);
+
+  name.value = "";
+  description.value = "";
+  tags.value = [];
+  photo.value = "";
+  location.value = "";
+
   await navigateTo({ path: "/" });
 };
 </script>
