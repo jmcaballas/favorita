@@ -6,8 +6,14 @@
     >
       <figure>
         <img
+          v-if="favorite.photo"
           :src="favorite.photo"
           alt=""
+          class="object-cover h-48 lg:h-60 w-full"
+        />
+        <Icon
+          v-else
+          name="ci:heart-outline"
           class="object-cover h-48 lg:h-60 w-full"
         />
       </figure>
