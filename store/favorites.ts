@@ -11,6 +11,12 @@ import {
   serverTimestamp,
   updateDoc,
 } from "firebase/firestore";
+import {
+  FirebaseStorage,
+  getDownloadURL,
+  ref as storageRef,
+  uploadBytes,
+} from "firebase/storage";
 import { Favorites } from "@/types/types";
 
 export const useFavoritesStore = defineStore("favorites", () => {
@@ -53,7 +59,22 @@ export const useFavoritesStore = defineStore("favorites", () => {
     }
   }
 
-  async function addFavorite(newFavorite: Favorites) {
+  async function uploadPhoto(file: File) {
+    const nuxtApp = useNuxtApp();
+    const storage = nuxtApp.$storage as FirebaseStorage;
+
+    try {
+      const photoRef = storageRef(storage, file.name);
+      await uploadBytes(photoRef, file);
+      const photoUrl = await getDownloadURL(photoRef);
+
+      return photoUrl;
+    } catch (e) {
+      console.error("Error uploading photo: ", e);
+    }
+  }
+
+  async function addFavorite(newFavorite: Favorites, file: File | null) {
     const nuxtApp = useNuxtApp();
     const auth = nuxtApp.$auth as Auth;
     const firestore = nuxtApp.$firestore as Firestore;
@@ -67,10 +88,18 @@ export const useFavoritesStore = defineStore("favorites", () => {
           "favorites"
         );
 
-        const newFavoriteWithTimestamp = {
+        let newFavoriteWithTimestamp = {
           ...newFavorite,
           timestamp: serverTimestamp(),
         };
+
+        if (file) {
+          const photoUrl = await uploadPhoto(file);
+          newFavoriteWithTimestamp = {
+            ...newFavoriteWithTimestamp,
+            photo: photoUrl,
+          };
+        }
 
         const docRef = await addDoc(colRef, newFavoriteWithTimestamp);
         getFavorites();
@@ -140,5 +169,12 @@ export const useFavoritesStore = defineStore("favorites", () => {
     }
   }
 
-  return { favorites, getFavorites, addFavorite, editFavorite, deleteFavorite };
+  return {
+    favorites,
+    getFavorites,
+    uploadPhoto,
+    addFavorite,
+    editFavorite,
+    deleteFavorite,
+  };
 });

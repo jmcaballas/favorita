@@ -6,7 +6,7 @@
     >
       <NewFavoriteText v-model:name="name" v-model:description="description" />
       <NewFavoriteTags :tags="tags" @add-tag="addTag" @remove-tag="removeTag" />
-      <NewFavoritePhoto />
+      <NewFavoritePhoto @file-added="captureFile($event)" />
       <NewFavoriteLocation v-model:location="location" />
       <button class="btn btn-secondary mt-9">SUBMIT</button>
     </form>
@@ -23,7 +23,7 @@ const { addFavorite } = store;
 const name = useState("newName", () => "");
 const description = useState("newDescription", () => "");
 const tags = useState<string[]>("newTags", () => []);
-const photo = useState("newPhoto", () => "");
+const photo = useState<File | null>("newPhoto", () => null);
 const location = useState("newLocation", () => "");
 
 const addTag = (tag: string) => {
@@ -34,22 +34,25 @@ const removeTag = (tag: string) => {
   tags.value = tags.value.filter((item) => item !== tag);
 };
 
+const captureFile = (file: File) => {
+  photo.value = file;
+};
+
 const handleAdd = async () => {
   const newFavorite: Favorites = {
     id: "0",
     name: name.value,
     description: description.value,
-    photo: "/_nuxt/assets/img/banana.jpg",
     tags: tags.value,
     location: location.value,
   };
 
-  addFavorite(newFavorite);
+  addFavorite(newFavorite, photo.value);
 
   name.value = "";
   description.value = "";
   tags.value = [];
-  photo.value = "";
+  photo.value = null;
   location.value = "";
 
   await navigateTo({ path: "/" });
