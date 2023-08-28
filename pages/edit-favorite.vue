@@ -10,7 +10,7 @@
         @add-tag="addTag"
         @remove-tag="removeTag"
       />
-      <EditFavoritePhoto />
+      <EditFavoritePhoto @file-added="captureFile($event)" />
       <EditFavoriteLocation v-model:location="location" />
       <button class="btn btn-secondary mt-9">SUBMIT</button>
     </form>
@@ -36,7 +36,7 @@ const favorite = computed(() =>
 const name = useState("EditName", () => "");
 const description = useState("EditDescription", () => "");
 const tags = useState<string[]>("EditTags", () => []);
-const photo = useState("EditPhoto", () => "");
+const photo = useState<File | null>("newPhoto", () => null);
 const location = useState("EditLocation", () => "");
 
 onMounted(() => {
@@ -44,7 +44,6 @@ onMounted(() => {
   name.value = favorite.value?.name ?? "";
   description.value = favorite.value?.description ?? "";
   tags.value = favorite.value?.tags ?? [];
-  photo.value = favorite.value?.photo ?? "";
   location.value = favorite.value?.location ?? "";
 });
 
@@ -56,17 +55,20 @@ const removeTag = (tag: string) => {
   tags.value = tags.value.filter((item) => item !== tag);
 };
 
+const captureFile = (file: File) => {
+  photo.value = file;
+};
+
 const handleEdit = async () => {
   const UpdatedFavorite: Favorites = {
     id: id.value,
     name: name.value,
     description: description.value,
-    photo: "/_nuxt/assets/img/banana.jpg",
     tags: tags.value,
     location: location.value,
   };
 
-  editFavorite(id.value, UpdatedFavorite);
+  editFavorite(id.value, UpdatedFavorite, photo.value);
   await navigateTo({ path: "/" });
 };
 </script>

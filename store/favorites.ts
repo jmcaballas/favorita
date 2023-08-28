@@ -111,7 +111,11 @@ export const useFavoritesStore = defineStore("favorites", () => {
     }
   }
 
-  async function editFavorite(docId: string, updatedFavorite: Favorites) {
+  async function editFavorite(
+    docId: string,
+    updatedFavorite: Favorites,
+    file: File | null
+  ) {
     const nuxtApp = useNuxtApp();
     const auth = nuxtApp.$auth as Auth;
     const firestore = nuxtApp.$firestore as Firestore;
@@ -126,10 +130,18 @@ export const useFavoritesStore = defineStore("favorites", () => {
           docId
         );
 
-        const updatedFavoriteWithTimestamp = {
+        let updatedFavoriteWithTimestamp = {
           ...updatedFavorite,
           timestamp: serverTimestamp(),
         };
+
+        if (file) {
+          const photoUrl = await uploadPhoto(file);
+          updatedFavoriteWithTimestamp = {
+            ...updatedFavoriteWithTimestamp,
+            photo: photoUrl,
+          };
+        }
 
         const docRef = await updateDoc(
           favoriteRef,
