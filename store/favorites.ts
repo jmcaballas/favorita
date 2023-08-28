@@ -61,14 +61,18 @@ export const useFavoritesStore = defineStore("favorites", () => {
 
   async function uploadPhoto(file: File) {
     const nuxtApp = useNuxtApp();
+    const auth = nuxtApp.$auth as Auth;
     const storage = nuxtApp.$storage as FirebaseStorage;
 
     try {
-      const photoRef = storageRef(storage, file.name);
-      await uploadBytes(photoRef, file);
-      const photoUrl = await getDownloadURL(photoRef);
+      if (auth.currentUser) {
+        const fileName = `${auth.currentUser.uid}/[${Date.now()}]${file.name}`;
+        const photoRef = storageRef(storage, fileName);
+        await uploadBytes(photoRef, file);
+        const photoUrl = await getDownloadURL(photoRef);
 
-      return photoUrl;
+        return photoUrl;
+      }
     } catch (e) {
       console.error("Error uploading photo: ", e);
     }
