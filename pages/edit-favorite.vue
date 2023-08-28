@@ -69,6 +69,7 @@ const handleEdit = async () => {
   };
 
   editFavorite(id.value, UpdatedFavorite, photo.value);
+  photo.value = null;
   await navigateTo({ path: "/" });
 };
 </script>
