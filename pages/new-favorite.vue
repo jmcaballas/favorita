@@ -26,6 +26,10 @@ const tags = useState<string[]>("newTags", () => []);
 const photo = useState<File | null>("newPhoto", () => null);
 const location = useState("newLocation", () => "");
 
+onMounted(() => {
+  photo.value = null;
+});
+
 const addTag = (tag: string) => {
   tags.value.push(tag);
 };
