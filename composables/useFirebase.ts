@@ -44,6 +44,7 @@ export const signInUser = async (email: string, password: string) => {
 export const initUser = async () => {
   const nuxtApp = useNuxtApp();
   const auth = nuxtApp.$auth as Auth;
+  const router = useRouter();
 
   const firebaseStore = useFirebaseUserStore();
   const favoritesStore = useFavoritesStore();
@@ -52,16 +53,13 @@ export const initUser = async () => {
 
   firebaseUser.value = auth.currentUser;
 
-  // const router = useRouter();
-
   onAuthStateChanged(auth, async (user) => {
     if (user) {
       // User is signed in, see docs for a list of available properties
       // https://firebase.google.com/docs/reference/js/firebase.User
       await getFavorites();
     } else {
-      //if signed out
-      // router.push("/");
+      router.push("/");
     }
 
     firebaseUser.value = user;
