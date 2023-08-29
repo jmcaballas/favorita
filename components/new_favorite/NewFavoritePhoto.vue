@@ -20,7 +20,7 @@ const photoUploadWarning = useState("photoUploadWarning");
 
 const emit = defineEmits(["file-added"]);
 
-const onFileChange = (event: Event) => {
+const onFileChange = async (event: Event) => {
   const target = event.target as HTMLInputElement;
 
   if (!target.files?.length) {
@@ -31,8 +31,16 @@ const onFileChange = (event: Event) => {
 
   if (!file.type.startsWith("image/")) {
     photoUploadWarning.value = true;
+    return;
+  } else {
+    photoUploadWarning.value = false;
   }
 
-  emit("file-added", file);
+  const compressedFile = await compressImage(file, {
+    quality: 0.75,
+    type: "image/webp",
+  });
+
+  emit("file-added", compressedFile);
 };
 </script>

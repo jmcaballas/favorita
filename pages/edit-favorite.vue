@@ -38,6 +38,7 @@ const description = useState("EditDescription", () => "");
 const tags = useState<string[]>("EditTags", () => []);
 const photo = useState<File | null>("newPhoto", () => null);
 const location = useState("EditLocation", () => "");
+const photoUploadWarning = useState<Boolean>("photoUploadWarning");
 
 onMounted(() => {
   id.value = route.query.id?.toString() ?? "";
@@ -45,6 +46,8 @@ onMounted(() => {
   description.value = favorite.value?.description ?? "";
   tags.value = favorite.value?.tags ?? [];
   location.value = favorite.value?.location ?? "";
+  photo.value = null;
+  photoUploadWarning.value = false;
 });
 
 const addTag = (tag: string) => {
@@ -60,6 +63,8 @@ const captureFile = (file: File) => {
 };
 
 const handleEdit = async () => {
+  if (photoUploadWarning.value === true) return;
+
   const UpdatedFavorite: Favorites = {
     id: id.value,
     name: name.value,
