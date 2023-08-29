@@ -18,7 +18,7 @@
 <script setup lang="ts">
 const photoUploadWarning = useState("photoUploadWarning");
 
-const emit = defineEmits(["file-added"]);
+const emit = defineEmits(["file-added", "toggleDisabledNewButton"]);
 
 const onFileChange = async (event: Event) => {
   const target = event.target as HTMLInputElement;
@@ -36,11 +36,14 @@ const onFileChange = async (event: Event) => {
     photoUploadWarning.value = false;
   }
 
+  emit("toggleDisabledNewButton", true);
+
   const compressedFile = await compressImage(file, {
     quality: 0.75,
     type: "image/webp",
   });
 
   emit("file-added", compressedFile);
+  emit("toggleDisabledNewButton", false);
 };
 </script>

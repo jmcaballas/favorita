@@ -10,9 +10,17 @@
         @add-tag="addTag"
         @remove-tag="removeTag"
       />
-      <EditFavoritePhoto @file-updated="captureFile($event)" />
+      <EditFavoritePhoto
+        @file-updated="captureFile($event)"
+        @toggle-disabled-edit-button="toggleDisabledEditButton"
+      />
       <EditFavoriteLocation v-model:location="location" />
-      <button class="btn btn-secondary mt-9">SUBMIT</button>
+      <button
+        :class="{ 'btn-disabled': disabledEditButton }"
+        class="btn btn-secondary mt-9"
+      >
+        SUBMIT
+      </button>
     </form>
   </div>
 </template>
@@ -39,6 +47,7 @@ const tags = useState<string[]>("EditTags", () => []);
 const photo = useState<File | null>("newPhoto", () => null);
 const location = useState("EditLocation", () => "");
 const photoUploadWarning = useState<Boolean>("photoUploadWarning");
+const disabledEditButton = useState<Boolean>("disabledEditButton");
 
 onMounted(() => {
   id.value = route.query.id?.toString() ?? "";
@@ -48,6 +57,7 @@ onMounted(() => {
   location.value = favorite.value?.location ?? "";
   photo.value = null;
   photoUploadWarning.value = false;
+  disabledEditButton.value = false;
 });
 
 const addTag = (tag: string) => {
@@ -60,6 +70,10 @@ const removeTag = (tag: string) => {
 
 const captureFile = (file: File) => {
   photo.value = file;
+};
+
+const toggleDisabledEditButton = (boolean: boolean) => {
+  disabledEditButton.value = boolean;
 };
 
 const handleEdit = async () => {

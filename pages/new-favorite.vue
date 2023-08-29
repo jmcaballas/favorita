@@ -6,9 +6,17 @@
     >
       <NewFavoriteText v-model:name="name" v-model:description="description" />
       <NewFavoriteTags :tags="tags" @add-tag="addTag" @remove-tag="removeTag" />
-      <NewFavoritePhoto @file-added="captureFile($event)" />
+      <NewFavoritePhoto
+        @file-added="captureFile($event)"
+        @toggle-disabled-new-button="toggleDisabledNewButton"
+      />
       <NewFavoriteLocation v-model:location="location" />
-      <button class="btn btn-secondary mt-9">SUBMIT</button>
+      <button
+        :class="{ 'btn-disabled': disabledNewButton }"
+        class="btn btn-secondary mt-9"
+      >
+        SUBMIT
+      </button>
     </form>
   </div>
 </template>
@@ -26,10 +34,12 @@ const tags = useState<string[]>("newTags", () => []);
 const photo = useState<File | null>("newPhoto", () => null);
 const location = useState("newLocation", () => "");
 const photoUploadWarning = useState<Boolean>("photoUploadWarning");
+const disabledNewButton = useState<Boolean>("disableNewButton");
 
 onMounted(() => {
   photo.value = null;
   photoUploadWarning.value = false;
+  disabledNewButton.value = false;
 });
 
 const addTag = (tag: string) => {
@@ -42,6 +52,10 @@ const removeTag = (tag: string) => {
 
 const captureFile = (file: File) => {
   photo.value = file;
+};
+
+const toggleDisabledNewButton = (boolean: boolean) => {
+  disabledNewButton.value = boolean;
 };
 
 const handleAdd = async () => {
