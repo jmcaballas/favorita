@@ -25,9 +25,11 @@ const description = useState("newDescription", () => "");
 const tags = useState<string[]>("newTags", () => []);
 const photo = useState<File | null>("newPhoto", () => null);
 const location = useState("newLocation", () => "");
+const photoUploadWarning = useState<Boolean>("photoUploadWarning");
 
 onMounted(() => {
   photo.value = null;
+  photoUploadWarning.value = false;
 });
 
 const addTag = (tag: string) => {
@@ -43,6 +45,8 @@ const captureFile = (file: File) => {
 };
 
 const handleAdd = async () => {
+  if (photoUploadWarning.value === true) return;
+
   const newFavorite: Favorites = {
     id: "0",
     name: name.value,
