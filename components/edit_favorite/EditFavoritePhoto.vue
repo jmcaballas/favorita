@@ -12,6 +12,7 @@
     accept="image/*"
     class="file-input file-input-bordered w-full file-input-secondary"
     @change="onFileChange($event)"
+    ref="editFileInputRef"
   />
 
   <div v-if="editPhotoThumbnailUrl" class="flex items-center mt-3">
@@ -20,7 +21,7 @@
         <img :src="editPhotoThumbnailUrl" alt="" width="50" height="50" />
       </div>
     </div>
-    <div class="btn btn-xs btn-accent">
+    <div @click="handleRemoveImage" class="btn btn-xs btn-accent">
       {{ editPhotoThumbnailName }}
       <Icon name="ci:close-lg" />
     </div>
@@ -31,13 +32,31 @@
 const editPhotoUploadWarning = useState("editPhotoUploadWarning");
 const editPhotoThumbnailName = useState("editPhotoThumbnailName", () => "");
 const editPhotoThumbnailUrl = useState("editPhotoThumbnailUrl", () => "");
+const editFileInputRef = useState<HTMLInputElement | null>(
+  "editFileInputRef",
+  () => null
+);
 
-const emit = defineEmits(["file-updated", "toggleDisabledEditButton"]);
+const emit = defineEmits([
+  "file-updated",
+  "file-removed",
+  "toggleDisabledEditButton",
+]);
 
 onMounted(() => {
   editPhotoThumbnailName.value = "";
   editPhotoThumbnailUrl.value = "";
 });
+
+const handleRemoveImage = () => {
+  emit("file-removed");
+  editPhotoThumbnailName.value = "";
+  editPhotoThumbnailUrl.value = "";
+
+  if (editFileInputRef.value) {
+    editFileInputRef.value.value = "";
+  }
+};
 
 const onFileChange = async (event: Event) => {
   const target = event.target as HTMLInputElement;

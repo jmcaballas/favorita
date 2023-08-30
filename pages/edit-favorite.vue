@@ -12,6 +12,7 @@
       />
       <EditFavoritePhoto
         @file-updated="captureFile($event)"
+        @file-removed="removeImage"
         @toggle-disabled-edit-button="toggleDisabledEditButton"
       />
       <EditFavoriteLocation v-model:location="location" />
@@ -70,6 +71,10 @@ const removeTag = (tag: string) => {
 
 const captureFile = (file: File) => {
   photo.value = file;
+};
+
+const removeImage = () => {
+  photo.value = null;
 };
 
 const toggleDisabledEditButton = (boolean: boolean) => {

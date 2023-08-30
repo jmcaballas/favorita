@@ -12,6 +12,7 @@
     accept="image/*"
     class="file-input file-input-bordered w-full file-input-secondary"
     @change="onFileChange($event)"
+    ref="newFileInputRef"
   />
 
   <div v-if="newPhotoThumbnailUrl" class="flex items-center mt-3">
@@ -20,7 +21,7 @@
         <img :src="newPhotoThumbnailUrl" alt="" width="50" height="50" />
       </div>
     </div>
-    <div class="btn btn-xs btn-accent">
+    <div @click="handleRemoveImage" class="btn btn-xs btn-accent">
       {{ newPhotoThumbnailName }}
       <Icon name="ci:close-lg" />
     </div>
@@ -31,13 +32,31 @@
 const newPhotoUploadWarning = useState("newPhotoUploadWarning");
 const newPhotoThumbnailName = useState("newPhotoThumbnailName", () => "");
 const newPhotoThumbnailUrl = useState("newPhotoThumbnailUrl", () => "");
+const newFileInputRef = useState<HTMLInputElement | null>(
+  "newFileInputRef",
+  () => null
+);
 
-const emit = defineEmits(["file-added", "toggleDisabledNewButton"]);
+const emit = defineEmits([
+  "file-added",
+  "file-removed",
+  "toggleDisabledNewButton",
+]);
 
 onMounted(() => {
   newPhotoThumbnailName.value = "";
   newPhotoThumbnailUrl.value = "";
 });
+
+const handleRemoveImage = () => {
+  emit("file-removed");
+  newPhotoThumbnailName.value = "";
+  newPhotoThumbnailUrl.value = "";
+
+  if (newFileInputRef.value) {
+    newFileInputRef.value.value = "";
+  }
+};
 
 const onFileChange = async (event: Event) => {
   const target = event.target as HTMLInputElement;

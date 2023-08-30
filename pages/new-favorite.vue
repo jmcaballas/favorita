@@ -8,6 +8,7 @@
       <NewFavoriteTags :tags="tags" @add-tag="addTag" @remove-tag="removeTag" />
       <NewFavoritePhoto
         @file-added="captureFile($event)"
+        @file-removed="removeImage"
         @toggle-disabled-new-button="toggleDisabledNewButton"
       />
       <NewFavoriteLocation v-model:location="location" />
@@ -52,6 +53,10 @@ const removeTag = (tag: string) => {
 
 const captureFile = (file: File) => {
   photo.value = file;
+};
+
+const removeImage = () => {
+  photo.value = null;
 };
 
 const toggleDisabledNewButton = (boolean: boolean) => {
