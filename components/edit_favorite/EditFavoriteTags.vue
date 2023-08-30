@@ -23,7 +23,7 @@
     </div>
   </div>
 
-  <div class="flex flex-wrap my-3">
+  <div v-if="tags.length" class="flex flex-wrap mt-3">
     <div
       v-for="tag in tags"
       :key="tag"
