@@ -46,7 +46,7 @@ const description = useState("EditDescription", () => "");
 const tags = useState<string[]>("EditTags", () => []);
 const photo = useState<File | null>("newPhoto", () => null);
 const location = useState("EditLocation", () => "");
-const photoUploadWarning = useState<Boolean>("photoUploadWarning");
+const editPhotoUploadWarning = useState<Boolean>("editPhotoUploadWarning");
 const disabledEditButton = useState<Boolean>("disabledEditButton");
 
 onMounted(() => {
@@ -56,7 +56,7 @@ onMounted(() => {
   tags.value = favorite.value?.tags ?? [];
   location.value = favorite.value?.location ?? "";
   photo.value = null;
-  photoUploadWarning.value = false;
+  editPhotoUploadWarning.value = false;
   disabledEditButton.value = false;
 });
 
@@ -77,7 +77,7 @@ const toggleDisabledEditButton = (boolean: boolean) => {
 };
 
 const handleEdit = async () => {
-  if (photoUploadWarning.value === true) return;
+  if (editPhotoUploadWarning.value === true) return;
 
   const UpdatedFavorite: Favorites = {
     id: id.value,

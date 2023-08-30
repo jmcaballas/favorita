@@ -33,12 +33,12 @@ const description = useState("newDescription", () => "");
 const tags = useState<string[]>("newTags", () => []);
 const photo = useState<File | null>("newPhoto", () => null);
 const location = useState("newLocation", () => "");
-const photoUploadWarning = useState<Boolean>("photoUploadWarning");
+const newPhotoUploadWarning = useState<Boolean>("newPhotoUploadWarning");
 const disabledNewButton = useState<Boolean>("disableNewButton");
 
 onMounted(() => {
   photo.value = null;
-  photoUploadWarning.value = false;
+  newPhotoUploadWarning.value = false;
   disabledNewButton.value = false;
 });
 
@@ -59,7 +59,7 @@ const toggleDisabledNewButton = (boolean: boolean) => {
 };
 
 const handleAdd = async () => {
-  if (photoUploadWarning.value === true) return;
+  if (newPhotoUploadWarning.value === true) return;
 
   const newFavorite: Favorites = {
     id: "0",
