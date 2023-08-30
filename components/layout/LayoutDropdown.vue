@@ -9,15 +9,17 @@
       v-show="isDropdownOpen"
     >
       <li>
-        <NuxtLink
-          to="/new-favorite"
-          onclick="document.activeElement.blur()"
-          class="flex items-center hover:bg-secondary-focus"
-        >
-          <Icon name="ci:user" size="1.5em" />
+        <div class="flex items-center hover:bg-secondary-focus">
+          <div v-if="firebaseUserProfilePhoto" class="avatar">
+            <div class="w-6 rounded-xl">
+              <img :src="firebaseUserProfilePhoto" />
+            </div>
+          </div>
+          <Icon v-else name="ci:user" size="1.5em" />
           User
-        </NuxtLink>
+        </div>
       </li>
+
       <li>
         <div
           class="flex items-center hover:bg-secondary-focus"
@@ -27,6 +29,7 @@
           <p>Theme</p>
         </div>
       </li>
+
       <li v-if="!firebaseUser">
         <LayoutSignIn />
       </li>
@@ -42,7 +45,7 @@ import { useFirebaseUserStore } from "@/store/firebaseUser";
 import { storeToRefs } from "pinia";
 
 const store = useFirebaseUserStore();
-const { firebaseUser } = storeToRefs(store);
+const { firebaseUser, firebaseUserProfilePhoto } = storeToRefs(store);
 
 const isDropdownOpen = useState("isDropdownOpen", () => false);
 const theme = useState("theme", () => "cupcake");
