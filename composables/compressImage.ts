@@ -14,13 +14,11 @@ export const compressImage = async (
     canvas.toBlob(resolve, type, quality)
   );
 
-  const fileNameWithoutExtension = file.name.replace(/\.[^.]+$/, "");
-
   if (!blob) {
     throw new Error("Unable to create blob.");
   }
 
-  return new File([blob], fileNameWithoutExtension, {
+  return new File([blob], file.name, {
     type: blob.type,
   });
 };

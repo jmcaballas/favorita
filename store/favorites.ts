@@ -66,8 +66,11 @@ export const useFavoritesStore = defineStore("favorites", () => {
 
     try {
       if (auth.currentUser) {
-        const fileName = `${auth.currentUser.uid}/[${Date.now()}]${file.name}`;
-        const photoRef = storageRef(storage, fileName);
+        const fileNameWithoutExtension = file.name.replace(/\.[^.]+$/, "");
+        const fileNameWithUidDate = `${
+          auth.currentUser.uid
+        }/[${Date.now()}]${fileNameWithoutExtension}`;
+        const photoRef = storageRef(storage, fileNameWithUidDate);
         await uploadBytes(photoRef, file);
         const photoUrl = await getDownloadURL(photoRef);
 
