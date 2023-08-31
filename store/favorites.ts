@@ -8,6 +8,8 @@ import {
   doc,
   Firestore,
   getDocs,
+  orderBy,
+  query,
   serverTimestamp,
   updateDoc,
 } from "firebase/firestore";
@@ -36,7 +38,9 @@ export const useFavoritesStore = defineStore("favorites", () => {
           "favorites"
         );
 
-        const snapshot = await getDocs(colRef);
+        const snapshot = await getDocs(
+          query(colRef, orderBy("updatedTimestamp", "desc"))
+        );
 
         const docs: Favorites[] = Array.from(snapshot.docs).map((doc) => {
           return {
