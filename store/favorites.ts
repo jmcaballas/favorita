@@ -24,6 +24,18 @@ import { Favorites } from "@/types/types";
 export const useFavoritesStore = defineStore("favorites", () => {
   const favorites = ref<Favorites[]>([]);
 
+  const allTags = computed(() => {
+    const tagsSet = new Set<string>();
+
+    favorites.value.forEach((favorite) => {
+      if (favorite.tags) {
+        favorite.tags.forEach((tag) => tagsSet.add(tag));
+      }
+    });
+
+    return tagsSet;
+  });
+
   async function getFavorites() {
     const nuxtApp = useNuxtApp();
     const auth = nuxtApp.$auth as Auth;
@@ -196,6 +208,7 @@ export const useFavoritesStore = defineStore("favorites", () => {
 
   return {
     favorites,
+    allTags,
     getFavorites,
     uploadPhoto,
     addFavorite,
