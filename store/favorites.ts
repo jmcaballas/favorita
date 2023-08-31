@@ -46,7 +46,8 @@ export const useFavoritesStore = defineStore("favorites", () => {
             tags: doc.data().tags,
             photo: doc.data().photo,
             location: doc.data().location,
-            timestamp: doc.data().timestamp,
+            createdTimestamp: doc.data().createdTimestamp,
+            updatedTimestamp: doc.data().updatedTimestamp,
           };
         });
 
@@ -97,7 +98,8 @@ export const useFavoritesStore = defineStore("favorites", () => {
 
         let newFavoriteWithTimestamp = {
           ...newFavorite,
-          timestamp: serverTimestamp(),
+          createdTimestamp: serverTimestamp(),
+          updatedTimestamp: serverTimestamp(),
         };
 
         if (file) {
@@ -139,7 +141,7 @@ export const useFavoritesStore = defineStore("favorites", () => {
 
         let updatedFavoriteWithTimestamp = {
           ...updatedFavorite,
-          timestamp: serverTimestamp(),
+          updatedTimestamp: serverTimestamp(),
         };
 
         if (file) {

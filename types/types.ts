@@ -5,5 +5,6 @@ export type Favorites = {
   tags?: string[];
   photo?: string;
   location?: string;
-  timestamp?: Date;
+  createdTimestamp?: Date;
+  updatedTimestamp?: Date;
 };
