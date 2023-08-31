@@ -33,7 +33,7 @@ export const useFavoritesStore = defineStore("favorites", () => {
       }
     });
 
-    return tagsSet;
+    return Array.from(tagsSet);
   });
 
   async function getFavorites() {
