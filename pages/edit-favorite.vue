@@ -1,5 +1,11 @@
 <template>
   <div class="container mx-auto p-4 h-screen">
+    <div class="flex items-center" @click="goBack">
+      <div class="btn btn-xs btn-outline btn-secondary">
+        <Icon name="ci:arrow-left-lg" size="1.5em" />
+        BACK TO FAVORITE
+      </div>
+    </div>
     <form
       @submit.prevent="handleEdit"
       class="form-control flex justify-center w-full"
@@ -36,6 +42,7 @@ const { favorites } = storeToRefs(store);
 const { editFavorite } = store;
 
 const route = useRoute();
+const router = useRouter();
 const id = useState("EditId", () => "");
 
 const favorite = computed(() =>
@@ -60,6 +67,10 @@ onMounted(() => {
   editPhotoUploadWarning.value = false;
   disabledEditButton.value = false;
 });
+
+const goBack = () => {
+  router.back();
+};
 
 const addTag = (tag: string) => {
   tags.value.push(tag);

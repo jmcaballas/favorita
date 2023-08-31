@@ -1,5 +1,11 @@
 <template>
   <div class="container mx-auto p-4 h-screen">
+    <div class="flex items-center" @click="navigateHome">
+      <div class="btn btn-xs btn-outline btn-secondary">
+        <Icon name="ci:arrow-left-lg" size="1.5em" />
+        BACK TO HOME
+      </div>
+    </div>
     <form
       @submit.prevent="handleAdd"
       class="form-control flex justify-center w-full"
@@ -43,6 +49,10 @@ onMounted(() => {
   disabledNewButton.value = false;
 });
 
+const navigateHome = async () => {
+  await navigateTo({ path: "/" });
+};
+
 const addTag = (tag: string) => {
   tags.value.push(tag);
 };
@@ -82,6 +92,6 @@ const handleAdd = async () => {
   photo.value = null;
   location.value = "";
 
-  await navigateTo({ path: "/" });
+  await navigateHome();
 };
 </script>
