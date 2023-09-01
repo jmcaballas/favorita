@@ -37,6 +37,7 @@ const emit = defineEmits(["selectFilter", "removeFilter"]);
 const handleselectFilter = (event: Event) => {
   const eventSelectedFilter = (event.target as HTMLSelectElement).value;
   emit("selectFilter", eventSelectedFilter);
+  (event.target as HTMLSelectElement).value = "SORT BY TAG";
 };
 
 const handleRemoveFilter = (filter: string) => {
