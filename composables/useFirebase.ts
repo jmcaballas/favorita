@@ -49,8 +49,9 @@ export const initUser = async () => {
   const firebaseStore = useFirebaseUserStore();
   const favoritesStore = useFavoritesStore();
   const { firebaseUser, firebaseUserProfilePhoto } = storeToRefs(firebaseStore);
-  const { getFavorites } = favoritesStore;
+  const { setLoading, getFavorites } = favoritesStore;
 
+  setLoading(true);
   firebaseUser.value = auth.currentUser;
 
   onAuthStateChanged(auth, async (user) => {
@@ -60,6 +61,7 @@ export const initUser = async () => {
       await getFavorites();
       firebaseUserProfilePhoto.value =
         auth.currentUser?.providerData[0].photoURL || "";
+      setLoading(false);
     } else {
       firebaseUserProfilePhoto.value = "";
       router.push("/");

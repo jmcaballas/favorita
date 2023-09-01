@@ -23,6 +23,7 @@ import { Favorites } from "@/types/types";
 
 export const useFavoritesStore = defineStore("favorites", () => {
   const favorites = ref<Favorites[]>([]);
+  const loading = ref<boolean>(false);
 
   const allTags = computed(() => {
     const tagsSet = new Set<string>();
@@ -35,6 +36,10 @@ export const useFavoritesStore = defineStore("favorites", () => {
 
     return Array.from(tagsSet).sort();
   });
+
+  function setLoading(state: boolean) {
+    loading.value = state;
+  }
 
   async function getFavorites() {
     const nuxtApp = useNuxtApp();
@@ -208,6 +213,8 @@ export const useFavoritesStore = defineStore("favorites", () => {
 
   return {
     favorites,
+    loading,
+    setLoading,
     allTags,
     getFavorites,
     uploadPhoto,

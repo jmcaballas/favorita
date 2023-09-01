@@ -14,17 +14,24 @@
       @remove-filter="removeFilter"
     />
 
-    <div class="mt-4 flex flex-wrap" v-if="filteredFavorites.length !== 0">
-      <HomeFavoriteCard
-        v-for="favorite in filteredFavorites"
-        :key="favorite.id"
-        :favorite="favorite"
-        class="w-full md:w-1/3 lg:w-1/4"
-      />
+    <div v-if="loading">
+      <span class="loading loading-spinner loading-lg"></span>
     </div>
+
     <div v-else>
-      No Favorites
-      <Icon name="ci:sad" size="1.5em" />
+      <div class="mt-4 flex flex-wrap" v-if="!isFilteredEmpty">
+        <HomeFavoriteCard
+          v-for="favorite in filteredFavorites"
+          :key="favorite.id"
+          :favorite="favorite"
+          class="w-full md:w-1/3 lg:w-1/4"
+        />
+      </div>
+
+      <div v-else>
+        No Favorites
+        <Icon name="ci:sad" size="1.5em" />
+      </div>
     </div>
   </div>
 </template>
@@ -34,9 +41,10 @@ import { storeToRefs } from "pinia";
 import { useFavoritesStore } from "@/store/favorites";
 
 const store = useFavoritesStore();
-const { favorites, allTags } = storeToRefs(store);
+const { favorites, loading, allTags } = storeToRefs(store);
 
 const selectedFilters = useState<string[]>("selectedFilter", () => []);
+const isFilteredEmpty = useState<boolean>("isFilteredEmpty", () => false);
 
 const selectFilter = (filter: string) => {
   if (!selectedFilters.value.includes(filter)) {
@@ -55,8 +63,16 @@ const filteredFavorites = computed(() => {
     return favorites.value;
   }
 
-  return favorites.value.filter((fav) =>
+  const filtered = favorites.value.filter((fav) =>
     selectedFilters.value.every((filter) => fav.tags?.includes(filter))
   );
+
+  if (filtered.length === 0) {
+    isFilteredEmpty.value = true;
+  } else {
+    isFilteredEmpty.value = false;
+  }
+
+  return filtered;
 });
 </script>
