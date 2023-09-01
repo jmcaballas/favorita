@@ -5,7 +5,7 @@
   >
     <option disabled selected>SORT BY TAG</option>
     <option v-for="tag in allTags" :key="tag" :value="tag">
-      {{ tag }}
+      {{ tag.toUpperCase() }}
     </option>
   </select>
 
@@ -13,8 +13,8 @@
     <div class="mr-3 mb-3 btn btn-sm btn-accent" @click="handleRemoveFilter">
       {{
         selectedFilter.length > 20
-          ? selectedFilter.slice(0, 20) + "..."
-          : selectedFilter
+          ? selectedFilter.toUpperCase().slice(0, 20) + "..."
+          : selectedFilter.toUpperCase()
       }}
       <Icon name="ci:close-lg" />
     </div>
