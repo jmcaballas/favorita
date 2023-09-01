@@ -14,13 +14,17 @@
       @remove-filter="removeFilter"
     />
 
-    <div class="mt-4 flex flex-wrap">
+    <div class="mt-4 flex flex-wrap" v-if="filteredFavorites.length !== 0">
       <HomeFavoriteCard
         v-for="favorite in filteredFavorites"
         :key="favorite.id"
         :favorite="favorite"
         class="w-full md:w-1/3 lg:w-1/4"
       />
+    </div>
+    <div v-else>
+      No Favorites
+      <Icon name="ci:sad" size="1.5em" />
     </div>
   </div>
 </template>
