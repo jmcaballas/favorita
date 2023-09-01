@@ -9,12 +9,17 @@
     </option>
   </select>
 
-  <div v-if="selectedFilter" class="flex flex-wrap mt-3">
-    <div class="mr-3 mb-3 btn btn-sm btn-accent" @click="handleRemoveFilter">
+  <div class="flex flex-wrap mt-3">
+    <div
+      v-for="filter in selectedFilters"
+      :key="filter"
+      @click="handleRemoveFilter(filter)"
+      class="mr-3 mb-3 btn btn-sm btn-accent"
+    >
       {{
-        selectedFilter.length > 20
-          ? selectedFilter.toUpperCase().slice(0, 20) + "..."
-          : selectedFilter.toUpperCase()
+        filter.length > 20
+          ? filter.toUpperCase().slice(0, 20) + "..."
+          : filter.toUpperCase()
       }}
       <Icon name="ci:close-lg" />
     </div>
@@ -22,9 +27,9 @@
 </template>
 
 <script setup lang="ts">
-const props = defineProps<{
+defineProps<{
   allTags: string[];
-  selectedFilter: string;
+  selectedFilters: string[];
 }>();
 
 const emit = defineEmits(["selectFilter", "removeFilter"]);
@@ -34,7 +39,7 @@ const handleselectFilter = (event: Event) => {
   emit("selectFilter", eventSelectedFilter);
 };
 
-const handleRemoveFilter = () => {
-  emit("removeFilter", props.selectedFilter);
+const handleRemoveFilter = (filter: string) => {
+  emit("removeFilter", filter);
 };
 </script>

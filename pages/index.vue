@@ -9,7 +9,7 @@
 
     <HomeTagFilter
       :allTags="allTags"
-      :selectedFilter="selectedFilter"
+      :selectedFilters="selectedFilters"
       @select-filter="selectFilter"
       @remove-filter="removeFilter"
     />
@@ -28,30 +28,31 @@
 <script setup lang="ts">
 import { storeToRefs } from "pinia";
 import { useFavoritesStore } from "@/store/favorites";
-import { Favorites } from "types/types";
 
 const store = useFavoritesStore();
 const { favorites, allTags } = storeToRefs(store);
 
-const selectedFilter = useState("selectedFilter", () => "");
+const selectedFilters = useState<string[]>("selectedFilter", () => []);
 
 const selectFilter = (filter: string) => {
-  selectedFilter.value = filter;
+  if (!selectedFilters.value.includes(filter)) {
+    selectedFilters.value.push(filter);
+  }
 };
 
-const removeFilter = async (filter: string) => {
-  selectedFilter.value = "";
+const removeFilter = (filter: string) => {
+  selectedFilters.value = selectedFilters.value.filter(
+    (item) => item !== filter
+  );
 };
 
 const filteredFavorites = computed(() => {
-  const originalFavorites: Favorites[] = favorites.value;
-
-  if (!selectedFilter.value) {
-    return originalFavorites;
+  if (selectedFilters.value.length === 0) {
+    return favorites.value;
   }
 
-  return originalFavorites.filter((fav) => {
-    return fav.tags?.includes(selectedFilter.value);
-  });
+  return favorites.value.filter((fav) =>
+    selectedFilters.value.every((filter) => fav.tags?.includes(filter))
+  );
 });
 </script>
