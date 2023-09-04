@@ -1,39 +1,41 @@
 <template>
-  <div class="container mx-auto p-4 flex flex-col items-center">
-    <div>
-      <NuxtLink to="/new-favorite" class="btn btn-secondary">
-        <Icon name="ci:plus-circle-outline" size="2em" />
-        ADD NEW FAVORITE
-      </NuxtLink>
-    </div>
-
-    <HomeTagFilter
-      :allTags="allTags"
-      :selectedFilters="selectedFilters"
-      @select-filter="selectFilter"
-      @remove-filter="removeFilter"
-    />
-
-    <div v-if="loading">
-      <span class="loading loading-spinner loading-lg"></span>
-    </div>
-
-    <div v-else class="w-full">
-      <div class="mt-4 flex flex-wrap" v-if="!isFilteredEmpty">
-        <HomeFavoriteCard
-          v-for="favorite in filteredFavorites"
-          :key="favorite.id"
-          :favorite="favorite"
-          class="w-full md:w-1/3 lg:w-1/4"
-        />
+  <ClientOnly>
+    <div class="container mx-auto p-4 flex flex-col items-center">
+      <div>
+        <NuxtLink to="/new-favorite" class="btn btn-secondary">
+          <Icon name="ci:plus-circle-outline" size="2em" />
+          ADD NEW FAVORITE
+        </NuxtLink>
       </div>
 
-      <div v-else class="text-center">
-        No Favorites
-        <Icon name="ci:sad" size="1.5em" />
+      <HomeTagFilter
+        :allTags="allTags"
+        :selectedFilters="selectedFilters"
+        @select-filter="selectFilter"
+        @remove-filter="removeFilter"
+      />
+
+      <div v-if="loading">
+        <span class="loading loading-spinner loading-lg"></span>
+      </div>
+
+      <div v-else class="w-full">
+        <div class="mt-4 flex flex-wrap" v-if="!isFilteredEmpty">
+          <HomeFavoriteCard
+            v-for="favorite in filteredFavorites"
+            :key="favorite.id"
+            :favorite="favorite"
+            class="w-full md:w-1/3 lg:w-1/4"
+          />
+        </div>
+
+        <div v-else class="text-center">
+          No Favorites
+          <Icon name="ci:sad" size="1.5em" />
+        </div>
       </div>
     </div>
-  </div>
+  </ClientOnly>
 </template>
 
 <script setup lang="ts">
