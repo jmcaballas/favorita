@@ -18,7 +18,7 @@
       <span class="loading loading-spinner loading-lg"></span>
     </div>
 
-    <div v-else>
+    <div v-else class="w-full">
       <div class="mt-4 flex flex-wrap" v-if="!isFilteredEmpty">
         <HomeFavoriteCard
           v-for="favorite in filteredFavorites"
