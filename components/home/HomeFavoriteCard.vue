@@ -32,7 +32,13 @@
         <div v-show="favorite?.location">
           <p class="location-text">
             <Icon name="ci:location-outline" size="1.5em" />
-            {{ favorite.location }}
+            {{
+              favorite.location
+                ? favorite.location.length > 30
+                  ? favorite.location?.slice(0, 30) + "..."
+                  : favorite.location
+                : ""
+            }}
           </p>
         </div>
       </div>
