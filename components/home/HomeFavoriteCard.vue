@@ -31,7 +31,7 @@
         </div>
         <div v-show="favorite.location" class="flex items-center mt-auto">
           <Icon name="ci:location-outline" size="1.5em" />
-          <p>{{ favorite.location }}</p>
+          <p class="location-text">{{ favorite.location }}</p>
         </div>
       </div>
     </div>

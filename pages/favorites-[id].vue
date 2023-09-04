@@ -18,7 +18,7 @@
         </div>
         <div v-show="favorite?.location" class="flex items-center">
           <Icon name="ci:location-outline" />
-          <p>{{ favorite?.location }}</p>
+          <p class="location-text">{{ favorite?.location }}</p>
         </div>
         <p>{{ favorite?.description }}</p>
       </div>
