@@ -28,7 +28,7 @@
         />
       </div>
 
-      <div v-else>
+      <div v-else class="text-center">
         No Favorites
         <Icon name="ci:sad" size="1.5em" />
       </div>
