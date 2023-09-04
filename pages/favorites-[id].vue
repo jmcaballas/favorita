@@ -1,11 +1,15 @@
 <template>
   <div class="container mx-auto p-4">
     <div class="card card-compact md:card-side bg-base-200 m-4 shadow-md">
-      <figure>
-        <img :src="favorite?.photo" alt="" class="max-h-screen" />
+      <figure class="md:w-1/2">
+        <img
+          :src="favorite?.photo"
+          alt=""
+          class="max-h-[calc(100vh-144px)] object-contain"
+        />
       </figure>
 
-      <div class="card-body">
+      <div class="card-body md:w-1/2">
         <h2 class="card-title">{{ favorite?.name }}</h2>
         <div class="flex flex-wrap">
           <div
