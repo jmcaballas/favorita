@@ -8,6 +8,7 @@ export default defineNuxtConfig({
     "@nuxtjs/google-fonts",
   ],
   googleFonts: {
+    download: false,
     families: {
       Roboto: true,
       "Libre Baskerville": {
