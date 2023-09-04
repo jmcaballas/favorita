@@ -20,9 +20,11 @@
             {{ tag.length > 20 ? tag.slice(0, 20) + "..." : tag }}
           </div>
         </div>
-        <div v-show="favorite?.location" class="flex items-center">
-          <Icon name="ci:location-outline" />
-          <p class="location-text">{{ favorite?.location }}</p>
+        <div v-show="favorite?.location">
+          <p class="location-text">
+            <Icon name="ci:location-outline" size="1.5em" />
+            {{ favorite?.location }}
+          </p>
         </div>
         <p>{{ favorite?.description }}</p>
 
