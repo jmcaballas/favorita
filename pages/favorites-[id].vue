@@ -1,8 +1,8 @@
 <template>
   <div class="container mx-auto p-4">
-    <div class="card card-compact bg-base-200 m-4 shadow-md">
+    <div class="card card-compact md:card-side bg-base-200 m-4 shadow-md">
       <figure>
-        <img :src="favorite?.photo" alt="" />
+        <img :src="favorite?.photo" alt="" class="max-h-screen" />
       </figure>
 
       <div class="card-body">
@@ -21,34 +21,34 @@
           <p class="location-text">{{ favorite?.location }}</p>
         </div>
         <p>{{ favorite?.description }}</p>
-      </div>
 
-      <div class="flex justify-around m-4">
-        <div class="btn w-6/12" @click="handleEdit">
-          <Icon name="ci:edit-pencil-01" size="2em" />
-          EDIT
+        <div class="flex justify-around m-4">
+          <div class="btn w-6/12" @click="handleEdit">
+            <Icon name="ci:edit-pencil-01" size="2em" />
+            EDIT
+          </div>
+
+          <button class="btn w-6/12" onclick="modal.showModal()">
+            <Icon name="ci:trash-full" size="2em" />
+            DELETE
+          </button>
+          <dialog id="modal" class="modal">
+            <form method="dialog" class="modal-box">
+              <h3 class="font-bold text-lg">Are you sure?</h3>
+              <p class="py-4">This will delete your Favorite permanently.</p>
+              <div class="modal-action">
+                <button class="btn" onclick="modal.close()">CANCEL</button>
+                <button
+                  class="btn btn-secondary"
+                  @click="handleDelete"
+                  type="button"
+                >
+                  DELETE
+                </button>
+              </div>
+            </form>
+          </dialog>
         </div>
-
-        <button class="btn w-6/12" onclick="modal.showModal()">
-          <Icon name="ci:trash-full" size="2em" />
-          DELETE
-        </button>
-        <dialog id="modal" class="modal">
-          <form method="dialog" class="modal-box">
-            <h3 class="font-bold text-lg">Are you sure?</h3>
-            <p class="py-4">This will delete your Favorite permanently.</p>
-            <div class="modal-action">
-              <button class="btn" onclick="modal.close()">CANCEL</button>
-              <button
-                class="btn btn-secondary"
-                @click="handleDelete"
-                type="button"
-              >
-                DELETE
-              </button>
-            </div>
-          </form>
-        </dialog>
       </div>
     </div>
   </div>
