@@ -3,10 +3,12 @@
     <div class="card card-compact md:card-side bg-base-200 m-4 shadow-md">
       <figure class="md:w-1/2">
         <img
+          v-if="favorite?.photo"
           :src="favorite?.photo"
           alt=""
           class="max-h-[calc(100vh-144px)] object-contain"
         />
+        <Icon v-else name="ci:heart-outline" size="16em" />
       </figure>
 
       <div class="card-body md:w-1/2">
