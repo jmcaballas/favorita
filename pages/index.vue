@@ -56,6 +56,8 @@ const removeFilter = (filter: string) => {
   selectedFilters.value = selectedFilters.value.filter(
     (item) => item !== filter
   );
+
+  isFilteredEmpty.value = false;
 };
 
 const filteredFavorites = computed(() => {
@@ -67,11 +69,7 @@ const filteredFavorites = computed(() => {
     selectedFilters.value.every((filter) => fav.tags?.includes(filter))
   );
 
-  if (filtered.length === 0) {
-    isFilteredEmpty.value = true;
-  } else {
-    isFilteredEmpty.value = false;
-  }
+  if (filtered.length === 0) isFilteredEmpty.value = true;
 
   return filtered;
 });
