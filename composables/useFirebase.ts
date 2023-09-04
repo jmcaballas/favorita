@@ -4,7 +4,7 @@ import {
   getRedirectResult,
   GoogleAuthProvider,
   signInWithEmailAndPassword,
-  signInWithRedirect,
+  signInWithPopup,
   onAuthStateChanged,
 } from "firebase/auth";
 import { storeToRefs } from "pinia";
@@ -65,6 +65,7 @@ export const initUser = async () => {
     } else {
       firebaseUserProfilePhoto.value = "";
       router.push("/");
+      setLoading(false);
     }
 
     firebaseUser.value = user;
@@ -88,7 +89,7 @@ export const signInGoogle = async () => {
   const auth = nuxtApp.$auth as Auth;
 
   const provider = new GoogleAuthProvider();
-  await signInWithRedirect(auth, provider);
+  await signInWithPopup(auth, provider);
 
   const credentials = await getRedirectResult(auth).catch((error) => {
     const errorCode = error.code;
