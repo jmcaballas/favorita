@@ -1,5 +1,5 @@
 <template>
-  <div class="container mx-auto p-4 h-screen">
+  <div class="container mx-auto p-4">
     <div class="flex items-center" @click="goBack">
       <div class="btn btn-xs btn-outline btn-secondary">
         <Icon name="ci:arrow-left-lg" size="1.5em" />

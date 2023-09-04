@@ -1,5 +1,5 @@
 <template>
-  <div class="container mx-auto p-4 flex flex-col items-center h-screen">
+  <div class="container mx-auto p-4 flex flex-col items-center">
     <div>
       <NuxtLink to="/new-favorite" class="btn btn-secondary">
         <Icon name="ci:plus-circle-outline" size="2em" />
