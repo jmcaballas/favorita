@@ -28,6 +28,7 @@ export default defineNuxtConfig({
   app: {
     head: {
       title: "Favorita - Repository For Your Favorite Food",
+      htmlAttrs: { lang: "en" },
       meta: [
         {
           name: "description",
