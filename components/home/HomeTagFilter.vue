@@ -3,7 +3,7 @@
     @change="handleselectFilter"
     class="select select-secondary w-full max-w-xs mt-5"
   >
-    <option disabled selected>SORT BY TAG</option>
+    <option disabled selected>FILTER BY TAG</option>
     <option v-for="tag in allTags" :key="tag" :value="tag">
       {{ tag.toUpperCase() }}
     </option>
@@ -37,7 +37,7 @@ const emit = defineEmits(["selectFilter", "removeFilter"]);
 const handleselectFilter = (event: Event) => {
   const eventSelectedFilter = (event.target as HTMLSelectElement).value;
   emit("selectFilter", eventSelectedFilter);
-  (event.target as HTMLSelectElement).value = "SORT BY TAG";
+  (event.target as HTMLSelectElement).value = "FILTER BY TAG";
 };
 
 const handleRemoveFilter = (filter: string) => {
