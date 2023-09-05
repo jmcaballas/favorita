@@ -1,11 +1,18 @@
 <template>
   <ClientOnly>
     <div tabindex="0" class="container mx-auto p-4 flex flex-col items-center">
-      <div>
+      <div v-if="firebaseUser">
         <NuxtLink to="/new-favorite" class="btn btn-secondary">
           <Icon name="ci:plus-circle-outline" size="2em" />
           ADD NEW FAVORITE
         </NuxtLink>
+      </div>
+
+      <div v-else>
+        <div @click="handleSignIn" class="btn btn-secondary">
+          <Icon name="ci:google" size="2em" />
+          SIGN IN
+        </div>
       </div>
 
       <HomeTagFilter
@@ -41,12 +48,21 @@
 <script setup lang="ts">
 import { storeToRefs } from "pinia";
 import { useFavoritesStore } from "@/store/favorites";
+import { useFirebaseUserStore } from "@/store/firebaseUser";
 
-const store = useFavoritesStore();
-const { favorites, loading, allTags } = storeToRefs(store);
+const favoritesStore = useFavoritesStore();
+const firebaseUserStore = useFirebaseUserStore();
+const { favorites, loading, allTags } = storeToRefs(favoritesStore);
+const { firebaseUser } = storeToRefs(firebaseUserStore);
 
 const selectedFilters = useState<string[]>("selectedFilter", () => []);
 const isFilteredEmpty = useState<boolean>("isFilteredEmpty", () => false);
+
+const handleSignIn = async () => {
+  try {
+    const result = await signInGoogle();
+  } catch (error) {}
+};
 
 const selectFilter = (filter: string) => {
   if (!selectedFilters.value.includes(filter)) {
