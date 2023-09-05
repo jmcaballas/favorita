@@ -27,4 +27,9 @@ export default defineNuxtConfig({
       measurementId: process.env.FIREBASE_MEASUREMENT_ID,
     },
   },
+  app: {
+    head: {
+      title: "Favorita - Repository For Your Favorite Food",
+    },
+  },
 });

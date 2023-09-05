@@ -104,4 +104,8 @@ const handleDelete = async () => {
   deleteFavorite(id);
   await navigateTo({ path: "/" });
 };
+
+useHead({
+  title: `Favorita - ${favorite.value?.name}`,
+});
 </script>

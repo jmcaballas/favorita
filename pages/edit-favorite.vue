@@ -107,4 +107,8 @@ const handleEdit = async () => {
   photo.value = null;
   await navigateTo({ path: "/" });
 };
+
+useHead({
+  title: "Favorita - Edit Favorite",
+});
 </script>

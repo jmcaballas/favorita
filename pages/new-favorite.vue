@@ -94,4 +94,8 @@ const handleAdd = async () => {
 
   await navigateHome();
 };
+
+useHead({
+  title: "Favorita - Add New Favorite",
+});
 </script>
