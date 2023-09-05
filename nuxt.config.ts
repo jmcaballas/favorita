@@ -11,9 +11,7 @@ export default defineNuxtConfig({
     download: false,
     families: {
       Roboto: true,
-      "Libre Baskerville": {
-        wght: [700],
-      },
+      Pacifico: true,
     },
   },
   runtimeConfig: {

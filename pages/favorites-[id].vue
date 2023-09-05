@@ -13,7 +13,7 @@
           v-if="favorite?.photo"
           :src="favorite?.photo"
           alt=""
-          class="max-h-[calc(100vh-144px)] object-contain"
+          class="max-h-[calc(100vh-10rem)] object-contain"
         />
         <Icon v-else name="ci:heart-outline" size="16em" />
       </figure>
