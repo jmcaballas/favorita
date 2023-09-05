@@ -1,6 +1,6 @@
 <template>
   <ClientOnly>
-    <div class="container mx-auto p-4 flex flex-col items-center">
+    <div tabindex="0" class="container mx-auto p-4 flex flex-col items-center">
       <div>
         <NuxtLink to="/new-favorite" class="btn btn-secondary">
           <Icon name="ci:plus-circle-outline" size="2em" />
