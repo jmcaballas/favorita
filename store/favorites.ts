@@ -22,7 +22,29 @@ import {
 import { Favorites } from "@/types/types";
 
 export const useFavoritesStore = defineStore("favorites", () => {
-  const favorites = ref<Favorites[]>([]);
+  const favorites = ref<Favorites[]>([
+    {
+      id: "0",
+      name: "El Born Cheesecake",
+      description: "Burnt Basque Cheesecake",
+      tags: ["dessert", "catalan", "mediterranean"],
+      photo: "/_nuxt/assets/img/cheesecake.jpg",
+      location: "El Born",
+      createdTimestamp: new Date(),
+      updatedTimestamp: new Date(),
+    },
+    {
+      id: "1",
+      name: "Kurobuta Pork Belly",
+      description:
+        "Robata grilled Kurobuta pork belly marinated in honey miso, hoisin sauce, tare sauce",
+      tags: ["kushiyaki", "japanese"],
+      photo: "/_nuxt/assets/img/kurobuta.jpg",
+      location: "Nikkei Robata",
+      createdTimestamp: new Date(),
+      updatedTimestamp: new Date(),
+    },
+  ]);
   const loading = ref<boolean>(false);
 
   const allTags = computed(() => {
