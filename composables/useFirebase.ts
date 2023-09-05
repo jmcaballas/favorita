@@ -48,7 +48,8 @@ export const initUser = async () => {
 
   const firebaseStore = useFirebaseUserStore();
   const favoritesStore = useFavoritesStore();
-  const { firebaseUser, firebaseUserProfilePhoto } = storeToRefs(firebaseStore);
+  const { firebaseUser, firebaseUserProfilePhoto, firebaseUserDisplayName } =
+    storeToRefs(firebaseStore);
   const { setLoading, getFavorites } = favoritesStore;
 
   setLoading(true);
@@ -61,9 +62,12 @@ export const initUser = async () => {
       await getFavorites();
       firebaseUserProfilePhoto.value =
         auth.currentUser?.providerData[0].photoURL || "";
+      firebaseUserDisplayName.value =
+        auth.currentUser?.providerData[0].displayName || "";
       setLoading(false);
     } else {
       firebaseUserProfilePhoto.value = "";
+      firebaseUserDisplayName.value = "";
       router.push("/");
       setLoading(false);
     }

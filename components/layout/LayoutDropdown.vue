@@ -16,7 +16,7 @@
             </div>
           </div>
           <Icon v-else name="ci:user" size="1.5em" />
-          User
+          {{ firebaseUserDisplayName || "User" }}
         </div>
       </li>
 
@@ -45,7 +45,8 @@ import { useFirebaseUserStore } from "@/store/firebaseUser";
 import { storeToRefs } from "pinia";
 
 const store = useFirebaseUserStore();
-const { firebaseUser, firebaseUserProfilePhoto } = storeToRefs(store);
+const { firebaseUser, firebaseUserProfilePhoto, firebaseUserDisplayName } =
+  storeToRefs(store);
 
 const isDropdownOpen = useState("isDropdownOpen", () => false);
 const theme = useState("theme", () => "cupcake");
