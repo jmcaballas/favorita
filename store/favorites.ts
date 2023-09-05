@@ -28,7 +28,8 @@ export const useFavoritesStore = defineStore("favorites", () => {
       name: "El Born Cheesecake",
       description: "Burnt Basque Cheesecake",
       tags: ["dessert", "catalan", "mediterranean"],
-      photo: "/_nuxt/assets/img/cheesecake.jpg",
+      photo:
+        "https://firebasestorage.googleapis.com/v0/b/jmcaballas-favorita.appspot.com/o/dOWV16i2pzTAAkYC7kIaZ3L5PlD2%2F%5B1693919399570%5DDSC03451?alt=media&token=07b565cd-f459-47d5-bcc7-f0d98ec92d90",
       location: "El Born",
       createdTimestamp: new Date(),
       updatedTimestamp: new Date(),
@@ -39,7 +40,8 @@ export const useFavoritesStore = defineStore("favorites", () => {
       description:
         "Robata grilled Kurobuta pork belly marinated in honey miso, hoisin sauce, tare sauce",
       tags: ["kushiyaki", "japanese"],
-      photo: "/_nuxt/assets/img/kurobuta.jpg",
+      photo:
+        "https://firebasestorage.googleapis.com/v0/b/jmcaballas-favorita.appspot.com/o/dOWV16i2pzTAAkYC7kIaZ3L5PlD2%2F%5B1693919515955%5DDSC03416?alt=media&token=c6d234ec-28bd-4090-a5fa-6865ff892b8e",
       location: "Nikkei Robata",
       createdTimestamp: new Date(),
       updatedTimestamp: new Date(),
