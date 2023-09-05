@@ -30,6 +30,19 @@ export default defineNuxtConfig({
   app: {
     head: {
       title: "Favorita - Repository For Your Favorite Food",
+      meta: [
+        {
+          name: "description",
+          content:
+            "Add, edit, and delete your favorite food with Favorita. Keep track of your own gastronomic adventures.",
+        },
+      ],
+      link: [
+        {
+          rel: "canonical",
+          href: "https://jmcaballas-favorita.vercel.app/",
+        },
+      ],
     },
   },
 });
