@@ -11,6 +11,8 @@ export default defineNuxtRouteMiddleware((to, from) => {
   }
 
   if (!firebaseUser.value) {
-    return navigateTo("/");
+    if (to.path === "/new-favorite" || to.path === "/edit-favorite") {
+      return abortNavigation();
+    }
   }
 });
