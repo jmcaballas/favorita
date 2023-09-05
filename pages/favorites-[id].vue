@@ -37,7 +37,7 @@
         </div>
         <p>{{ favorite?.description }}</p>
 
-        <div class="flex justify-around m-4">
+        <div v-if="firebaseUser" class="flex justify-around m-4">
           <div class="btn w-6/12" @click="handleEdit">
             <Icon name="ci:edit-pencil-01" size="2em" />
             EDIT
@@ -72,10 +72,13 @@
 <script setup lang="ts">
 import { storeToRefs } from "pinia";
 import { useFavoritesStore } from "@/store/favorites";
+import { useFirebaseUserStore } from "@/store/firebaseUser";
 
-const store = useFavoritesStore();
-const { favorites } = storeToRefs(store);
-const { deleteFavorite } = store;
+const favoritesStore = useFavoritesStore();
+const firebaseUserStore = useFirebaseUserStore();
+const { favorites } = storeToRefs(favoritesStore);
+const { firebaseUser } = storeToRefs(firebaseUserStore);
+const { deleteFavorite } = favoritesStore;
 
 const route = useRoute();
 const id = route.params.id ? route.params.id.toString() : "";
