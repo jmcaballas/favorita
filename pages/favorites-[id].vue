@@ -1,6 +1,13 @@
 <template>
   <div class="container mx-auto p-4">
-    <div class="card card-compact md:card-side bg-base-200 m-4 shadow-md">
+    <div class="flex items-center" @click="navigateHome">
+      <div class="btn btn-xs btn-outline btn-secondary">
+        <Icon name="ci:arrow-left-lg" size="1.5em" />
+        BACK TO HOME
+      </div>
+    </div>
+
+    <div class="card card-compact md:card-side bg-base-200 mt-4 shadow-md">
       <figure class="md:w-1/2">
         <img
           v-if="favorite?.photo"
@@ -76,6 +83,10 @@ const id = route.params.id ? route.params.id.toString() : "";
 const favorite = computed(() =>
   favorites.value.find((item) => item.id === route.params.id)
 );
+
+const navigateHome = async () => {
+  await navigateTo({ path: "/" });
+};
 
 const handleEdit = async () => {
   await navigateTo({
