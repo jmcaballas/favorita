@@ -24,7 +24,7 @@
           <div
             v-for="tag in slicedTags"
             :key="tag"
-            class="mr-1 mb-1 btn btn-xs btn-accent no-animation w-min"
+            class="mr-1 mb-1 btn btn-xs btn-accent no-animation"
           >
             {{ tag.length > 20 ? tag.slice(0, 20) + "..." : tag }}
           </div>
