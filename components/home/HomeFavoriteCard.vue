@@ -8,7 +8,7 @@
         <img
           v-if="favorite.photo"
           :src="favorite.photo"
-          alt=""
+          :alt="favorite.name"
           class="object-cover h-48 lg:h-60 w-full"
         />
         <Icon

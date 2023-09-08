@@ -12,7 +12,7 @@
         <div class="flex items-center hover:bg-secondary-focus">
           <div v-if="firebaseUserProfilePhoto" class="avatar">
             <div class="w-6 rounded-xl">
-              <img :src="firebaseUserProfilePhoto" />
+              <img :src="firebaseUserProfilePhoto" alt="User Profile Photo" />
             </div>
           </div>
           <Icon v-else name="ci:user" size="1.5em" />

@@ -18,7 +18,12 @@
   <div v-if="newPhotoThumbnailUrl" class="flex items-center mt-3">
     <div class="avatar">
       <div class="w-10 mask mask-squircle mr-3">
-        <img :src="newPhotoThumbnailUrl" alt="" width="50" height="50" />
+        <img
+          :src="newPhotoThumbnailUrl"
+          :alt="newPhotoThumbnailName"
+          width="50"
+          height="50"
+        />
       </div>
     </div>
     <div @click="handleRemoveImage" class="btn btn-xs btn-accent">
