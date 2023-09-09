@@ -29,7 +29,7 @@ export const useFavoritesStore = defineStore("favorites", () => {
       description: "Burnt Basque Cheesecake",
       tags: ["dessert", "catalan", "mediterranean"],
       photo:
-        "https://ik.imagekit.io/jmcaballasfavorita/o/dOWV16i2pzTAAkYC7kIaZ3L5PlD2%2F%5B1693919399570%5DDSC03451?alt=media&token=07b565cd-f459-47d5-bcc7-f0d98ec92d90&tr=w-400,ll",
+        "https://ik.imagekit.io/jmcaballasfavorita/o/dOWV16i2pzTAAkYC7kIaZ3L5PlD2%2F%5B1693919399570%5DDSC03451?alt=media&token=07b565cd-f459-47d5-bcc7-f0d98ec92d90&tr=w-800,ll",
       location: "El Born",
       createdTimestamp: new Date(),
       updatedTimestamp: new Date(),
@@ -41,7 +41,7 @@ export const useFavoritesStore = defineStore("favorites", () => {
         "Robata grilled Kurobuta pork belly marinated in honey miso, hoisin sauce, tare sauce",
       tags: ["kushiyaki", "japanese"],
       photo:
-        "https://ik.imagekit.io/jmcaballasfavorita/o/dOWV16i2pzTAAkYC7kIaZ3L5PlD2%2F%5B1693919515955%5DDSC03416?alt=media&token=c6d234ec-28bd-4090-a5fa-6865ff892b8e&tr=w-400,ll",
+        "https://ik.imagekit.io/jmcaballasfavorita/o/dOWV16i2pzTAAkYC7kIaZ3L5PlD2%2F%5B1693919515955%5DDSC03416?alt=media&token=c6d234ec-28bd-4090-a5fa-6865ff892b8e&tr=w-800,ll",
       location: "Nikkei Robata",
       createdTimestamp: new Date(),
       updatedTimestamp: new Date(),
