@@ -1,11 +1,21 @@
 <template>
   <div class="container mx-auto p-4">
-    <div class="flex items-center" @click="navigateHome">
-      <div class="btn btn-xs btn-outline btn-secondary">
-        <Icon name="ci:arrow-left-lg" size="1.5em" />
-        BACK TO HOME
+    <div class="flex justify-between">
+      <div class="flex items-center" @click="navigateHome">
+        <div class="btn btn-xs btn-outline btn-secondary">
+          <Icon name="ci:arrow-left-lg" size="1.5em" />
+          BACK TO HOME
+        </div>
+      </div>
+
+      <div class="flex items-center" @click="clearForm">
+        <div class="btn btn-xs btn-outline btn-secondary">
+          <Icon name="ci:undo" size="1.5em" />
+          CLEAR FORM
+        </div>
       </div>
     </div>
+
     <form
       @submit.prevent="handleAdd"
       class="form-control flex justify-center w-full"
@@ -16,6 +26,7 @@
         @file-added="captureFile($event)"
         @file-removed="removeImage"
         @toggle-disabled-new-button="toggleDisabledNewButton"
+        :is-new-form-cleared="isNewFormCleared"
       />
       <NewFavoriteLocation v-model:location="location" />
       <button
@@ -40,17 +51,33 @@ const description = useState("newDescription", () => "");
 const tags = useState<string[]>("newTags", () => []);
 const photo = useState<File | null>("newPhoto", () => null);
 const location = useState("newLocation", () => "");
-const newPhotoUploadWarning = useState<Boolean>("newPhotoUploadWarning");
-const disabledNewButton = useState<Boolean>("disableNewButton");
+const newPhotoUploadWarning = useState<boolean>("newPhotoUploadWarning");
+const disabledNewButton = useState<boolean>("disableNewButton");
+const isNewFormCleared = useState<boolean>("isNewFormCleared", () => false);
 
 onMounted(() => {
   photo.value = null;
   newPhotoUploadWarning.value = false;
   disabledNewButton.value = false;
+  isNewFormCleared.value = false;
 });
 
 const navigateHome = async () => {
   await navigateTo({ path: "/" });
+};
+
+const clearForm = () => {
+  name.value = "";
+  description.value = "";
+  tags.value = [];
+  photo.value = null;
+  location.value = "";
+
+  isNewFormCleared.value = true;
+
+  setTimeout(() => {
+    isNewFormCleared.value = false;
+  }, 0);
 };
 
 const addTag = (tag: string) => {

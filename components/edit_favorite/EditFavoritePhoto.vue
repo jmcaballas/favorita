@@ -42,6 +42,10 @@ const editFileInputRef = useState<HTMLInputElement | null>(
   () => null
 );
 
+const props = defineProps<{
+  isEditFormCleared: boolean;
+}>();
+
 const emit = defineEmits([
   "file-updated",
   "file-removed",
@@ -62,6 +66,20 @@ const handleRemoveImage = () => {
     editFileInputRef.value.value = "";
   }
 };
+
+watch(
+  () => props.isEditFormCleared,
+  () => {
+    if (props.isEditFormCleared) {
+      editPhotoThumbnailName.value = "";
+      editPhotoThumbnailUrl.value = "";
+
+      if (editFileInputRef.value) {
+        editFileInputRef.value.value = "";
+      }
+    }
+  }
+);
 
 const onFileChange = async (event: Event) => {
   const target = event.target as HTMLInputElement;

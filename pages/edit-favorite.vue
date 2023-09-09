@@ -1,9 +1,18 @@
 <template>
   <div class="container mx-auto p-4">
-    <div class="flex items-center" @click="goBack">
-      <div class="btn btn-xs btn-outline btn-secondary">
-        <Icon name="ci:arrow-left-lg" size="1.5em" />
-        BACK TO FAVORITE
+    <div class="flex justify-between">
+      <div class="flex items-center" @click="goBack">
+        <div class="btn btn-xs btn-outline btn-secondary">
+          <Icon name="ci:arrow-left-lg" size="1.5em" />
+          BACK TO FAVORITE
+        </div>
+      </div>
+
+      <div class="flex items-center" @click="clearForm">
+        <div class="btn btn-xs btn-outline btn-secondary">
+          <Icon name="ci:undo" size="1.5em" />
+          CLEAR FORM
+        </div>
       </div>
     </div>
     <form
@@ -20,6 +29,7 @@
         @file-updated="captureFile($event)"
         @file-removed="removeImage"
         @toggle-disabled-edit-button="toggleDisabledEditButton"
+        :isEditFormCleared="isEditFormCleared"
       />
       <EditFavoriteLocation v-model:location="location" />
       <button
@@ -54,8 +64,9 @@ const description = useState("EditDescription", () => "");
 const tags = useState<string[]>("EditTags", () => []);
 const photo = useState<File | null>("newPhoto", () => null);
 const location = useState("EditLocation", () => "");
-const editPhotoUploadWarning = useState<Boolean>("editPhotoUploadWarning");
-const disabledEditButton = useState<Boolean>("disabledEditButton");
+const editPhotoUploadWarning = useState<boolean>("editPhotoUploadWarning");
+const disabledEditButton = useState<boolean>("disabledEditButton");
+const isEditFormCleared = useState<boolean>("isEditFormCleared", () => false);
 
 onMounted(() => {
   id.value = route.query.id?.toString() ?? "";
@@ -66,10 +77,25 @@ onMounted(() => {
   photo.value = null;
   editPhotoUploadWarning.value = false;
   disabledEditButton.value = false;
+  isEditFormCleared.value = false;
 });
 
 const goBack = () => {
   router.back();
+};
+
+const clearForm = () => {
+  name.value = "";
+  description.value = "";
+  tags.value = [];
+  photo.value = null;
+  location.value = "";
+
+  isEditFormCleared.value = true;
+
+  setTimeout(() => {
+    isEditFormCleared.value = false;
+  }, 0);
 };
 
 const addTag = (tag: string) => {
